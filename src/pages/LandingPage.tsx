@@ -134,7 +134,16 @@ export default function LandingPage() {
 
         {/* ===== SEÇÃO CTA ANUNCIE AQUI ===== */}
         <div className="mx-4 my-12">
-          <div className="relative overflow-hidden rounded-xl bg-gradient-to-r from-[#5e0d12] to-[#7a1119] shadow-lg">
+          <div className="relative overflow-hidden rounded-xl shadow-lg">
+            {/* Imagem de fundo */}
+            <div
+              className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+              style={{
+                backgroundImage: 'url("https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80")'
+              }}
+            ></div>
+            {/* Degradê sobreposto */}
+            <div className="absolute inset-0 bg-gradient-to-r from-[#5e0d12]/80 via-[#7a1119]/100 to-[#5e0d12]/80"></div>
             <div className="relative px-6 py-12 md:px-12 md:py-16">
               <div className="mx-auto max-w-3xl text-center">
 
