@@ -1,14 +1,22 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Header from "./components/custom/Header";
+import Footer from "./components/custom/Footer";
 import LandingPage from "./pages/LandingPage";
 import NotFound from "./pages/NotFound";
 
 function App() {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<LandingPage />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
+      <div className="min-h-screen flex flex-col">
+        <Header />
+        <main className="flex-1">
+          <Routes>
+            <Route path="/" element={<LandingPage />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </main>
+        <Footer />
+      </div>
     </BrowserRouter>
   );
 }

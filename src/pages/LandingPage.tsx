@@ -1,9 +1,7 @@
-import Header from "@/components/custom/Header";
-
 export default function LandingPage() {
   return (
     <div>
-      <Header />
+      <h1>Bem-vindo à Silva e Silva</h1>
     </div>
   );
 }

@@ -5,7 +5,7 @@ const NotFound = () => {
     const navigate = useNavigate()
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-background to-muted p-4">
+        <div className="flex items-center justify-center bg-gradient-to-br from-background to-muted p-4 py-20">
             <div className="text-center space-y-8 max-w-2xl mx-auto w-full flex flex-col items-center justify-center">
                 {/* SVG Animado 404 */}
                 <div className="relative flex justify-center">
