@@ -46,7 +46,7 @@ export default function Header() {
           <div className="flex items-center gap-9">
             <a className="text-[#1C0D0F] text-md font-medium leading-normal hover:text-[#5a1317] transition-colors" href="#">Alugar</a>
             <a className="text-[#1C0D0F] text-md font-medium leading-normal hover:text-[#5a1317] transition-colors" href="#">Comprar</a>
-            <a className="text-[#1C0D0F] text-md font-medium leading-normal hover:text-[#5a1317] transition-colors" href="#">Fianciar</a>
+            <a className="text-[#1C0D0F] text-md font-medium leading-normal hover:text-[#5a1317] transition-colors" href="#">Financiar</a>
             <a className="text-[#1C0D0F] text-md font-medium leading-normal hover:text-[#5a1317] transition-colors" href="#">Sobre</a>
           </div>
           <Button className="min-w-[84px] max-w-[480px] h-10 px-4 bg-[#5e0d12] hover:bg-[#4a0a0f] text-[#fbf8f9] text-sm font-bold tracking-[0.015em]">
