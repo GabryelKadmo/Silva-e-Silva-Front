@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { FaUserFriends, FaMicrochip, FaEye } from "react-icons/fa";
 
 export default function LandingPage() {
   return (
@@ -256,16 +257,117 @@ export default function LandingPage() {
         </div>
 
         {/* ===== SEÇÃO SOBRE NÓS ===== */}
-        <h2 className="text-[#1b0e0f] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 py-10">
-          Sobre Nós
-        </h2>
-        <p className="text-[#1b0e0f] text-base leading-normal pb-3 pt-1 px-4">
-          A Imobiliária é uma empresa com anos de experiência no mercado imobiliário, comprometida em oferecer
-          serviços de alta qualidade e atendimento personalizado. Nossa
-          missão é ajudar nossos clientes a realizar seus sonhos, seja comprando, vendendo ou alugando um imóvel.
-          Valorizamos a transparência, a ética e a excelência em tudo o
-          que fazemos.
-        </p>
+        <div className="px-4 py-16 md:py-24">
+          <div className="max-w-7xl">
+            {/* Cabeçalho da seção */}
+            {/* <div className="text-center mb-16">
+              <h2 className="text-[#1b0e0f] text-[22px] font-bold leading-tight tracking-[-0.015em] mb-4">
+                Sobre a Silva & Silva
+              </h2>
+              <div className="w-24 h-1 bg-[#5e0d12] mx-auto rounded-full"></div>
+            </div> */}
+
+            {/* Grid principal */}
+            <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center mb-16">
+              {/* Lado esquerdo - Texto principal */}
+              <div className="space-y-6">
+                <h3 className="text-[#1b0e0f] text-2xl md:text-3xl font-bold leading-tight">
+                  Mais de <span className="text-[#5e0d12]">15 anos</span> transformando sonhos em realidade
+                </h3>
+                <div className="space-y-4 text-base leading-relaxed">
+                  <p className="text-[#955055]">
+                    A <strong className="text-[#5e0d12] font-semibold">Silva & Silva</strong> nasceu da paixão de uma família em conectar pessoas aos seus lares ideais. Nossa história começou com dois irmãos que acreditavam que encontrar a casa perfeita deveria ser uma experiência única e memorável.
+                  </p>
+                  <p className="text-[#955055]">
+                    Hoje, somos referência no mercado imobiliário pela nossa abordagem humanizada e pelo uso de tecnologia de ponta. Cada imóvel tem uma história, e nossa missão é encontrar a história perfeita para cada cliente.
+                  </p>
+                </div>
+
+                {/* Estatísticas */}
+                <div className="grid grid-cols-3 gap-4 pt-6">
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-[#5e0d12]">500+</div>
+                    <div className="text-sm text-[#955055] font-medium">Imóveis Vendidos</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-[#5e0d12]">98%</div>
+                    <div className="text-sm text-[#955055] font-medium">Clientes Satisfeitos</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-[#5e0d12]">15+</div>
+                    <div className="text-sm text-[#955055] font-medium">Anos de Experiência</div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Lado direito - Imagem */}
+              <div className="relative">
+                <div className="relative overflow-hidden rounded-2xl shadow-2xl">
+                  <div
+                    className="w-full h-80 md:h-96 bg-cover bg-center"
+                    style={{
+                      backgroundImage: 'url("https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80")'
+                    }}
+                  ></div>
+                  {/* Overlay com padrão */}
+                  <div className="absolute inset-0 bg-gradient-to-tr from-[#5e0d12]/20 to-transparent"></div>
+                </div>
+              </div>
+            </div>
+
+            {/* Seção de valores/diferenciais */}
+            <div className="border-t border-[#e6d1d2] pt-16">
+              <h4 className="text-[#1b0e0f] text-xl font-bold text-center my-16">
+                Nossos Diferenciais
+              </h4>
+
+              <div className="grid md:grid-cols-3 gap-8">
+                {/* Diferencial 1 */}
+                <div className="text-center group">
+                  <div className="w-16 h-16 bg-[#5e0d12]/10 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-[#5e0d12]/20 transition-colors duration-300">
+                    <FaUserFriends className="w-8 h-8 text-[#5e0d12]" />
+                  </div>
+                  <h5 className="text-[#1b0e0f] font-bold mb-2">Atendimento Personalizado</h5>
+                  <p className="text-[#955055] text-sm leading-relaxed">
+                    Cada cliente recebe atenção exclusiva com consultores especializados em suas necessidades específicas.
+                  </p>
+                </div>
+
+                {/* Diferencial 2 */}
+                <div className="text-center group">
+                  <div className="w-16 h-16 bg-[#5e0d12]/10 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-[#5e0d12]/20 transition-colors duration-300">
+                    <FaMicrochip className="w-8 h-8 text-[#5e0d12]" />
+                  </div>
+                  <h5 className="text-[#1b0e0f] font-bold mb-2">Tecnologia Avançada</h5>
+                  <p className="text-[#955055] text-sm leading-relaxed">
+                    Utilizamos ferramentas modernas como tours virtuais, IA para precificação e CRM integrado.
+                  </p>
+                </div>
+
+                {/* Diferencial 3 */}
+                <div className="text-center group">
+                  <div className="w-16 h-16 bg-[#5e0d12]/10 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-[#5e0d12]/20 transition-colors duration-300">
+                    <FaEye className="w-8 h-8 text-[#5e0d12]" />
+                  </div>
+                  <h5 className="text-[#1b0e0f] font-bold mb-2">Transparência Total</h5>
+                  <p className="text-[#955055] text-sm leading-relaxed">
+                    Processo claro desde o primeiro contato, com relatórios detalhados e comunicação constante.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Call to action */}
+            <div className="text-center mt-16">
+              <div className="inline-flex items-center gap-2 bg-[#5e0d12]/5 text-[#5e0d12] px-6 py-3 rounded-full text-sm font-medium">
+                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
+                </svg>
+                Conheça nossa equipe e descubra como podemos ajudar você
+              </div>
+            </div>
+          </div>
+        </div>
 
         {/* ===== SEÇÃO CALL TO ACTION (Chamada Final) ===== */}
         <div className="@container">
