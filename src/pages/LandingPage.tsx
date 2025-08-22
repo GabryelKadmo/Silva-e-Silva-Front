@@ -4,6 +4,8 @@ export default function LandingPage() {
   return (
     <div className="flex flex-1 justify-center py-5">
       <div className="layout-content-container flex flex-col max-w-[1260px] flex-1">
+
+        {/* ===== SEÇÃO HERO (Banner Principal) ===== */}
         <div className="@container">
           <div className="@[480px]:p-4">
             <div
@@ -28,56 +30,109 @@ export default function LandingPage() {
           </div>
         </div>
 
+        {/* ===== SEÇÃO IMÓVEIS EM DESTAQUE ===== */}
         <h2 className="text-[#1b0e0f] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 py-10">
-          Propriedades em Destaque
+          Imóveis em Destaque
         </h2>
-        <div className="grid grid-cols-[repeat(auto-fit,minmax(158px,1fr))] gap-3 p-4">
-          <div className="flex flex-col gap-3 pb-3">
-            <div
-              className="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-lg"
-              style={{
-                backgroundImage: 'url("https://lh3.googleusercontent.com/aida-public/AB6AXuCCN338pxgXZ4DdanN5Hdo9FpHIqilqfzoyf33OTTdFiIFvHK96cMaDUY3XlmSDLxRIeP5fJNxKzKK3KAP18JtfP5mManLUljXwzCVuQh5rE-h4ZXmaxpQxF7swxyhc6p_PeMfeq3_wiQDN9nnAmPlYecxhLTFrVCZxpAIOSLj7LbPJpDNVpwkXS0x4ZnqkE3Z0458tk8iy6YnCzqOTo2FycA9wNh3cfq0nG8gLZPChtO3ZhBzi9GoN75LJE31xVs5vnCeu6aurMOY")'
-              }}
-            ></div>
-            <div>
-              <p className="text-[#1b0e0f] text-base font-medium leading-normal">Elegante Casa Familiar</p>
-              <p className="text-[#955055] text-sm font-normal leading-normal">
-                Espaçosa casa de 4 quartos with um grande quintal, perfeita para famílias.
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-4">
+          <div className="group bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100">
+            <div className="relative overflow-hidden">
+              <div
+                className="w-full h-64 bg-center bg-no-repeat bg-cover transition-transform duration-300 group-hover:scale-105"
+                style={{
+                  backgroundImage: 'url("https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2075&q=80")'
+                }}
+              ></div>
+              <div className="absolute top-4 left-4 bg-[#5e0d12] text-white px-3 py-1 rounded-full text-xs font-semibold">
+                Casa
+              </div>
+              <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm text-[#5e0d12] px-3 py-1 rounded-full text-sm font-bold">
+                R$ 750.000
+              </div>
+            </div>
+            <div className="p-6">
+              <h3 className="text-[#1b0e0f] text-lg font-bold leading-tight mb-2">Casa Clássica Moderna</h3>
+              <p className="text-[#955055] text-sm leading-relaxed mb-4">
+                Residência de 4 quartos com arquitetura contemporânea, jardim paisagístico e área gourmet completa.
               </p>
+              <div className="flex items-center justify-between text-xs text-[#955055]">
+                <span className="flex items-center gap-1">
+                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
+                  </svg>
+                  4 quartos • 3 banheiros
+                </span>
+                <span>280m²</span>
+              </div>
             </div>
           </div>
 
-          <div className="flex flex-col gap-3 pb-3">
-            <div
-              className="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-lg"
-              style={{
-                backgroundImage: 'url("https://lh3.googleusercontent.com/aida-public/AB6AXuDH6p4A8YAG-SxHtymdHWCF9OdErs_0yit5PR8BJDJgr333sZL_bBZ5ArDulmKM_hj0JnqqPg4p_ReiEVxFMbPjiYIdjz1UC2zjVBr2LrUH6d65PrYzgMymcgRv4Qo-HyhEaJiX9UItDJeI5oyRhqlAlSCh9xSHTQSoK9YlH7bzJ1RwI6vF9R6bq_a-y86q-qO1wUO49iJp1H09DHxYVtVYi3x7xYC2CAmZODENR3V3wNcLT0I3hl-Q_6W2Nb1JExPRdzQDJT3wLrQ")'
-              }}
-            ></div>
-            <div>
-              <p className="text-[#1b0e0f] text-base font-medium leading-normal">Aconchegante Apartamento</p>
-              <p className="text-[#955055] text-sm font-normal leading-normal">
-                Apartamento moderno de 2 quartos com vistas para a cidade e comodidades convenientes.
+          <div className="group bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100">
+            <div className="relative overflow-hidden">
+              <div
+                className="w-full h-64 bg-center bg-no-repeat bg-cover transition-transform duration-300 group-hover:scale-105"
+                style={{
+                  backgroundImage: 'url("https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80")'
+                }}
+              ></div>
+              <div className="absolute top-4 left-4 bg-[#5e0d12] text-white px-3 py-1 rounded-full text-xs font-semibold">
+                Apartamento
+              </div>
+              <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm text-[#5e0d12] px-3 py-1 rounded-full text-sm font-bold">
+                R$ 450.000
+              </div>
+            </div>
+            <div className="p-6">
+              <h3 className="text-[#1b0e0f] text-lg font-bold leading-tight mb-2">Apartamento Sofisticado</h3>
+              <p className="text-[#955055] text-sm leading-relaxed mb-4">
+                Loft moderno de 2 quartos com vista panorâmica, acabamentos premium e localização privilegiada no centro.
               </p>
+              <div className="flex items-center justify-between text-xs text-[#955055]">
+                <span className="flex items-center gap-1">
+                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
+                  </svg>
+                  2 quartos • 2 banheiros
+                </span>
+                <span>120m²</span>
+              </div>
             </div>
           </div>
 
-          <div className="flex flex-col gap-3 pb-3">
-            <div
-              className="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-lg"
-              style={{
-                backgroundImage: 'url("https://lh3.googleusercontent.com/aida-public/AB6AXuAnBluWVnaHDJW1qPbmpi8gkV7xOAEgjCMdQa6TiE-ByCEvmDrCptE3I0zJWoGszebYvkRcY7NFmcbVGx_hs4DV_fkioywb4MYfBCR8NCuiVnIeHl_Gwba9HASVBRrU4q6YxaleAfxG5vo1elvPTlcnogdYaBuu5ANvvJtjTR8-TkKD337xKh3ifpCpI0Anvo_eN1MZHwhMakjcbXXmk6J8ICQNbNW1hy9XF5NaZWw_kPdJVNl_LWsKlSn-04w6Ckq4TvdGjyQ05ns")'
-              }}
-            ></div>
-            <div>
-              <p className="text-[#1b0e0f] text-base font-medium leading-normal">Refúgio de Villa de Luxo</p>
-              <p className="text-[#955055] text-sm font-normal leading-normal">
-                Villa exclusiva de 5 quartos com piscina privativa e paisagem deslumbrante.
+          <div className="group bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100">
+            <div className="relative overflow-hidden">
+              <div
+                className="w-full h-64 bg-center bg-no-repeat bg-cover transition-transform duration-300 group-hover:scale-105"
+                style={{
+                  backgroundImage: 'url("https://images.unsplash.com/photo-1613977257363-707ba9348227?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80")'
+                }}
+              ></div>
+              <div className="absolute top-4 left-4 bg-[#5e0d12] text-white px-3 py-1 rounded-full text-xs font-semibold">
+                Mansão
+              </div>
+              <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm text-[#5e0d12] px-3 py-1 rounded-full text-sm font-bold">
+                R$ 1.850.000
+              </div>
+            </div>
+            <div className="p-6">
+              <h3 className="text-[#1b0e0f] text-lg font-bold leading-tight mb-2">Mansão de Alto Padrão</h3>
+              <p className="text-[#955055] text-sm leading-relaxed mb-4">
+                Residência exclusiva de 5 quartos com piscina infinita, cinema privativo e sistema de automação completo.
               </p>
+              <div className="flex items-center justify-between text-xs text-[#955055]">
+                <span className="flex items-center gap-1">
+                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
+                  </svg>
+                  5 quartos • 6 banheiros
+                </span>
+                <span>650m²</span>
+              </div>
             </div>
           </div>
         </div>
 
+        {/* ===== SEÇÃO DEPOIMENTOS DE CLIENTES ===== */}
         <h2 className="text-[#1b0e0f] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 py-10">
           Depoimentos de Clientes
         </h2>
@@ -178,6 +233,7 @@ export default function LandingPage() {
           </div>
         </div>
 
+        {/* ===== SEÇÃO NOSSOS SERVIÇOS ===== */}
         <h2 className="text-[#1b0e0f] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 py-10">
           Nossos Serviços
         </h2>
@@ -239,6 +295,7 @@ export default function LandingPage() {
           </div>
         </div>
 
+        {/* ===== SEÇÃO SOBRE NÓS ===== */}
         <h2 className="text-[#1b0e0f] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 py-10">
           Sobre Nós
         </h2>
@@ -250,6 +307,7 @@ export default function LandingPage() {
           que fazemos.
         </p>
 
+        {/* ===== SEÇÃO CALL TO ACTION (Chamada Final) ===== */}
         <div className="@container">
           <div className="flex flex-col items-center justify-end gap-6 px-4 py-10 @[480px]:gap-8 @[480px]:px-10 @[480px]:py-20">
             <div className="flex flex-col gap-2 text-center">
