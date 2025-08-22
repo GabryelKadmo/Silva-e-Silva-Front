@@ -132,103 +132,54 @@ export default function LandingPage() {
           </div>
         </div>
 
-        {/* ===== SEÇÃO DEPOIMENTOS DE CLIENTES ===== */}
-        <h2 className="text-[#1b0e0f] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 py-10">
-          Depoimentos de Clientes
-        </h2>
-        <div className="flex flex-col gap-8 overflow-x-hidden p-4">
-          <div className="flex flex-col gap-3">
-            <div className="flex items-center gap-3">
-              <div
-                className="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10"
-                style={{
-                  backgroundImage: 'url("https://lh3.googleusercontent.com/aida-public/AB6AXuC4uf3EMWjvFAJvQD5FooK30NSKPjNh3Abu4udh_qif-nmyMYCy7gs-nWXmFkHnw3do6L777cHwKxICz53eHyuwt70iHjuPs586D3n6g-v1GMlZOZmsvKXQ-bZUIFFrfU_lfO3iK9_uze5YQ_Np_NH0Vz-4pkTVLV-7E6waXraozwqOsyuleY5mDvezEfMl5SPqpbRZbsOuCZtcMU9xBQPuGaza5yV_gtK77Loq1b_q3gEJa7PNj45FcaI74NIweW49Y744SKECH3c")'
-                }}
-              ></div>
-              <div className="flex-1">
-                <p className="text-[#1b0e0f] text-base font-medium leading-normal">Sofia Almeida</p>
-                <p className="text-[#955055] text-sm font-normal leading-normal">2023-08-15</p>
-              </div>
-            </div>
-            <div className="flex gap-0.5">
-              {[...Array(5)].map((_, i) => (
-                <div key={i} className="text-[#5e0d12]">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="currentColor" viewBox="0 0 256 256">
-                    <path d="M234.5,114.38l-45.1,39.36,13.51,58.6a16,16,0,0,1-23.84,17.34l-51.11-31-51,31a16,16,0,0,1-23.84-17.34L66.61,153.8,21.5,114.38a16,16,0,0,1,9.11-28.06l59.46-5.15,23.21-55.36a15.95,15.95,0,0,1,29.44,0h0L166,81.17l59.44,5.15a16,16,0,0,1,9.11,28.06Z"></path>
-                  </svg>
-                </div>
-              ))}
-            </div>
-            <p className="text-[#1b0e0f] text-base font-normal leading-normal">
-              A Imobiliária me ajudou a encontrar a casa dos meus sonhos! O atendimento foi excelente e o processo muito tranquilo.
-            </p>
-            <div className="flex gap-9 text-[#955055]">
-              <button className="flex items-center gap-2">
-                <div className="text-inherit">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="currentColor" viewBox="0 0 256 256">
-                    <path d="M234,80.12A24,24,0,0,0,216,72H160V56a40,40,0,0,0-40-40,8,8,0,0,0-7.16,4.42L75.06,96H32a16,16,0,0,0-16,16v88a16,16,0,0,0,16,16H204a24,24,0,0,0,23.82-21l12-96A24,24,0,0,0,234,80.12ZM32,112H72v88H32ZM223.94,97l-12,96a8,8,0,0,1-7.94,7H88V105.89l36.71-73.43A24,24,0,0,1,144,56V80a8,8,0,0,0,8,8h64a8,8,0,0,1,7.94,9Z"></path>
-                  </svg>
-                </div>
-                <p className="text-inherit">10</p>
-              </button>
-              <button className="flex items-center gap-2">
-                <div className="text-inherit">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="currentColor" viewBox="0 0 256 256">
-                    <path d="M239.82,157l-12-96A24,24,0,0,0,204,40H32A16,16,0,0,0,16,56v88a16,16,0,0,0,16,16H75.06l37.78,75.58A8,8,0,0,0,120,240a40,40,0,0,0,40-40V184h56a24,24,0,0,0,23.82-27ZM72,144H32V56H72Zm150,21.29a7.88,7.88,0,0,1-6,2.71H152a8,8,0,0,0-8,8v24a24,24,0,0,1-19.29,23.54L88,150.11V56H204a8,8,0,0,1,7.94,7l12,96A7.87,7.87,0,0,1,222,165.29Z"></path>
-                  </svg>
-                </div>
-                <p className="text-inherit">2</p>
-              </button>
-            </div>
-          </div>
+        {/* ===== SEÇÃO CTA ANUNCIE AQUI ===== */}
+        <div className="mx-4 my-12">
+          <div className="relative overflow-hidden rounded-xl bg-gradient-to-r from-[#5e0d12] to-[#7a1119] shadow-lg">
+            <div className="relative px-6 py-12 md:px-12 md:py-16">
+              <div className="mx-auto max-w-3xl text-center">
 
-          <div className="flex flex-col gap-3">
-            <div className="flex items-center gap-3">
-              <div
-                className="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10"
-                style={{
-                  backgroundImage: 'url("https://lh3.googleusercontent.com/aida-public/AB6AXuAnvrMq5aJs9MwIKoHRT9w-LoonV9EWd39wGvOqdTc6CLPZXL1M4Gul4hLJ8jhq289OA7UHrMFhoSuvkhc9k_CUqeLGaC-OwgOxmVL4EnJwHkR30ZK8h4PAP99Qw_8w09SJ9Mnvs_6_6xcCkcOuf3GCU4mnoXokt9jHxUZ822TpK6YW7oNaATkn88L5Jx3DPCz0-a0k0fhLQnHKBTdwG5mWgeP1xgN1XLge7vENeeMJkrUgyiegiDtqPpY5qNFW9SirLqjRgocVbDQ")'
-                }}
-              ></div>
-              <div className="flex-1">
-                <p className="text-[#1b0e0f] text-base font-medium leading-normal">Carlos Pereira</p>
-                <p className="text-[#955055] text-sm font-normal leading-normal">2023-09-22</p>
+                {/* Conteúdo Principal */}
+                <h2 className="mb-4 text-2xl font-bold text-white md:text-4xl">
+                  Tem um imóvel para anunciar?
+                </h2>
+                <p className="mb-8 text-base text-white/90 md:text-lg">
+                  Transforme sua propriedade em oportunidade de negócio
+                </p>
+
+                {/* Benefícios Compactos */}
+                <div className="mb-8 flex flex-wrap justify-center gap-6 text-sm text-white/80">
+                  <div className="flex items-center gap-2">
+                    <span className="flex h-6 w-6 items-center justify-center rounded-full bg-white/20">✓</span>
+                    Avaliação Gratuita
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="flex h-6 w-6 items-center justify-center rounded-full bg-white/20">✓</span>
+                    Marketing Digital
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="flex h-6 w-6 items-center justify-center rounded-full bg-white/20">✓</span>
+                    Suporte Completo
+                  </div>
+                </div>
+
+                {/* Botões de Ação */}
+                <div className="flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
+                  <Button className="bg-white text-[#5e0d12] hover:bg-white/90 h-12 px-6 text-base font-semibold min-w-[180px] transition-all duration-300">
+                    Anunciar Meu Imóvel
+                  </Button>
+                  <Button variant="outline" className="border border-white/30 text-white hover:bg-white/10 hover:text-white h-12 px-6 text-base font-medium min-w-[180px] bg-transparent">
+                    Falar com Consultor
+                  </Button>
+                </div>
+
+                {/* Informação Adicional */}
+                {/* <div className="mt-6 text-center">
+                  <p className="text-xs text-white/60">
+                    🏆 Mais de <span className="font-semibold text-white/80">500 imóveis vendidos</span> •
+                    ⭐ <span className="font-semibold text-white/80">4.9/5</span> de satisfação
+                  </p>
+                </div> */}
               </div>
-            </div>
-            <div className="flex gap-0.5">
-              {[...Array(4)].map((_, i) => (
-                <div key={i} className="text-[#5e0d12]">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="currentColor" viewBox="0 0 256 256">
-                    <path d="M234.5,114.38l-45.1,39.36,13.51,58.6a16,16,0,0,1-23.84,17.34l-51.11-31-51,31a16,16,0,0,1-23.84-17.34L66.61,153.8,21.5,114.38a16,16,0,0,1,9.11-28.06l59.46-5.15,23.21-55.36a15.95,15.95,0,0,1,29.44,0h0L166,81.17l59.44,5.15a16,16,0,0,1,9.11,28.06Z"></path>
-                  </svg>
-                </div>
-              ))}
-              <div className="text-[#d4afb2]">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="currentColor" viewBox="0 0 256 256">
-                  <path d="M239.2,97.29a16,16,0,0,0-13.81-11L166,81.17,142.72,25.81h0a15.95,15.95,0,0,0-29.44,0L90.07,81.17,30.61,86.32a16,16,0,0,0-9.11,28.06L66.61,153.8,53.09,212.34a16,16,0,0,0,23.84,17.34l51-31,51.11,31a16,16,0,0,0,23.84-17.34l-13.51-58.6,45.1-39.36A16,16,0,0,0,239.2,97.29Zm-15.22,5-45.1,39.36a16,16,0,0,0-5.08,15.71L187.35,216v0l-51.07-31a15.9,15.9,0,0,0-16.54,0l-51,31h0L82.2,157.4a16,16,0,0,0-5.08-15.71L32,102.35a.37.37,0,0,1,0-.09l59.44-5.14a16,16,0,0,0,13.35-9.75L128,32.08l23.2,55.29a16,16,0,0,0,13.35,9.75L224,102.26S224,102.32,224,102.33Z"></path>
-                </svg>
-              </div>
-            </div>
-            <p className="text-[#1b0e0f] text-base font-normal leading-normal">
-              A equipe da Imobiliária foi muito profissional e me ajudou a vender meu imóvel rapidamente.
-            </p>
-            <div className="flex gap-9 text-[#955055]">
-              <button className="flex items-center gap-2">
-                <div className="text-inherit">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="currentColor" viewBox="0 0 256 256">
-                    <path d="M234,80.12A24,24,0,0,0,216,72H160V56a40,40,0,0,0-40-40,8,8,0,0,0-7.16,4.42L75.06,96H32a16,16,0,0,0-16,16v88a16,16,0,0,0,16,16H204a24,24,0,0,0,23.82-21l12-96A24,24,0,0,0,234,80.12ZM32,112H72v88H32ZM223.94,97l-12,96a8,8,0,0,1-7.94,7H88V105.89l36.71-73.43A24,24,0,0,1,144,56V80a8,8,0,0,0,8,8h64a8,8,0,0,1,7.94,9Z"></path>
-                  </svg>
-                </div>
-                <p className="text-inherit">8</p>
-              </button>
-              <button className="flex items-center gap-2">
-                <div className="text-inherit">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="currentColor" viewBox="0 0 256 256">
-                    <path d="M239.82,157l-12-96A24,24,0,0,0,204,40H32A16,16,0,0,0,16,56v88a16,16,0,0,0,16,16H75.06l37.78,75.58A8,8,0,0,0,120,240a40,40,0,0,0,40-40V184h56a24,24,0,0,0,23.82-27ZM72,144H32V56H72Zm150,21.29a7.88,7.88,0,0,1-6,2.71H152a8,8,0,0,0-8,8v24a24,24,0,0,1-19.29,23.54L88,150.11V56H204a8,8,0,0,1,7.94,7l12,96A7.87,7.87,0,0,1,222,165.29Z"></path>
-                  </svg>
-                </div>
-                <p className="text-inherit">1</p>
-              </button>
             </div>
           </div>
         </div>
