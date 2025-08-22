@@ -120,14 +120,14 @@ export default function Header() {
                 href="#"
                 onClick={() => setIsMenuOpen(false)}
               >
+                <span className="ml-3">Comprar</span>
+              </a>
               <a
                 className="flex items-center px-4 py-4 text-[#1C0D0F] text-lg font-medium rounded-xl hover:bg-gray-50 hover:text-[#5a1317] transition-all duration-200 transform hover:translate-x-1"
                 href="#"
                 onClick={() => setIsMenuOpen(false)}
               >
                 <span className="ml-3">Alugar</span>
-              </a>
-                <span className="ml-3">Comprar</span>
               </a>
               <a
                 className="flex items-center px-4 py-4 text-[#1C0D0F] text-lg font-medium rounded-xl hover:bg-gray-50 hover:text-[#5a1317] transition-all duration-200 transform hover:translate-x-1"
