@@ -44,9 +44,10 @@ export default function Header() {
 
         <div className="hidden md:flex flex-1 justify-end gap-8">
           <div className="flex items-center gap-9">
-            <a className="text-[#1C0D0F] text-md font-medium leading-normal hover:text-[#5a1317] transition-colors" href="#">Alugar</a>
             <a className="text-[#1C0D0F] text-md font-medium leading-normal hover:text-[#5a1317] transition-colors" href="#">Comprar</a>
-            <a className="text-[#1C0D0F] text-md font-medium leading-normal hover:text-[#5a1317] transition-colors" href="#">Financiar</a>
+            <a className="text-[#1C0D0F] text-md font-medium leading-normal hover:text-[#5a1317] transition-colors" href="#">Alugar</a>
+            <a className="text-[#1C0D0F] text-md font-medium leading-normal hover:text-[#5a1317] transition-colors" href="#">Lançamentos</a>
+            <a className="text-[#1C0D0F] text-md font-medium leading-normal hover:text-[#5a1317] transition-colors" href="#">Anuncie</a>
             <a className="text-[#1C0D0F] text-md font-medium leading-normal hover:text-[#5a1317] transition-colors" href="#">Sobre</a>
           </div>
           <Button className="min-w-[84px] max-w-[480px] h-10 px-4 bg-[#5e0d12] hover:bg-[#4a0a0f] text-[#fbf8f9] text-sm font-bold tracking-[0.015em]">
@@ -119,8 +120,6 @@ export default function Header() {
                 href="#"
                 onClick={() => setIsMenuOpen(false)}
               >
-                <span className="ml-3">Comprar</span>
-              </a>
               <a
                 className="flex items-center px-4 py-4 text-[#1C0D0F] text-lg font-medium rounded-xl hover:bg-gray-50 hover:text-[#5a1317] transition-all duration-200 transform hover:translate-x-1"
                 href="#"
@@ -128,12 +127,28 @@ export default function Header() {
               >
                 <span className="ml-3">Alugar</span>
               </a>
+                <span className="ml-3">Comprar</span>
+              </a>
               <a
                 className="flex items-center px-4 py-4 text-[#1C0D0F] text-lg font-medium rounded-xl hover:bg-gray-50 hover:text-[#5a1317] transition-all duration-200 transform hover:translate-x-1"
                 href="#"
                 onClick={() => setIsMenuOpen(false)}
               >
-                <span className="ml-3">Financiamento</span>
+                <span className="ml-3">Lançamentos</span>
+              </a>
+              <a
+                className="flex items-center px-4 py-4 text-[#1C0D0F] text-lg font-medium rounded-xl hover:bg-gray-50 hover:text-[#5a1317] transition-all duration-200 transform hover:translate-x-1"
+                href="#"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                <span className="ml-3">Anuncie</span>
+              </a>
+              <a
+                className="flex items-center px-4 py-4 text-[#1C0D0F] text-lg font-medium rounded-xl hover:bg-gray-50 hover:text-[#5a1317] transition-all duration-200 transform hover:translate-x-1"
+                href="#"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                <span className="ml-3">Sobre</span>
               </a>
             </div>
           </nav>
