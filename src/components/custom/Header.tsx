@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react"
 import { X } from "lucide-react"
+import { Link } from "react-router-dom"
 import LogoPng from "/LogoPng.png"
 import { Button } from "../ui/button"
 
@@ -33,22 +34,22 @@ export default function Header() {
 
   return (
     <>
-      <header className="relative flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#f3e8e9] px-4 sm:px-6 lg:px-10 py-3 bg-white z-40">
-        <div className="flex items-center gap-1 cursor-pointer">
+      <header className="sticky top-0 flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#f3e8e9] px-4 sm:px-6 lg:px-10 py-0 bg-white/95 backdrop-blur-sm z-40 shadow-sm transition-all duration-200">
+        <Link to="/" className="flex items-center gap-1 cursor-pointer hover:opacity-80 transition-opacity duration-200">
           <img src={LogoPng} alt="Silva & Silva Logo" className="w-12 sm:w-16 lg:w-20 object-contain drop-shadow-md" />
           <h1 className="hidden sm:block text-sm sm:text-base lg:text-lg font-bold text-[#5a1317]" style={{ fontFamily: 'Poppins, sans-serif' }}>
             <span className="hidden lg:inline">Silva & Silva Imobiliária</span>
             <span className="lg:hidden">Silva & Silva</span>
           </h1>
-        </div>
+        </Link>
 
         <div className="hidden md:flex flex-1 justify-end gap-8">
           <div className="flex items-center gap-9">
-            <a className="text-[#1C0D0F] text-md font-medium leading-normal hover:text-[#5a1317] transition-colors" href="#">Comprar</a>
-            <a className="text-[#1C0D0F] text-md font-medium leading-normal hover:text-[#5a1317] transition-colors" href="#">Alugar</a>
-            <a className="text-[#1C0D0F] text-md font-medium leading-normal hover:text-[#5a1317] transition-colors" href="#">Lançamentos</a>
-            <a className="text-[#1C0D0F] text-md font-medium leading-normal hover:text-[#5a1317] transition-colors" href="#">Anuncie</a>
-            <a className="text-[#1C0D0F] text-md font-medium leading-normal hover:text-[#5a1317] transition-colors" href="#">Sobre</a>
+            <Link className="text-[#1C0D0F] text-md font-medium leading-normal hover:text-[#5a1317] transition-colors" to="/imoveis?tipo=comprar">Comprar</Link>
+            <Link className="text-[#1C0D0F] text-md font-medium leading-normal hover:text-[#5a1317] transition-colors" to="/imoveis?tipo=alugar">Alugar</Link>
+            <Link className="text-[#1C0D0F] text-md font-medium leading-normal hover:text-[#5a1317] transition-colors" to="/lancamentos">Lançamentos</Link>
+            <Link className="text-[#1C0D0F] text-md font-medium leading-normal hover:text-[#5a1317] transition-colors" to="/anuncie">Anuncie</Link>
+            <a className="text-[#1C0D0F] text-md font-medium leading-normal hover:text-[#5a1317] transition-colors" href="#about">Sobre</a>
           </div>
           <Button className="min-w-[84px] max-w-[480px] h-10 px-4 bg-[#5e0d12] hover:bg-[#4a0a0f] text-[#fbf8f9] text-sm font-bold tracking-[0.015em]">
             Entrar
@@ -98,12 +99,12 @@ export default function Header() {
       >
         <div className="flex flex-col h-full">
           <div className="flex items-center justify-between p-6 border-b border-gray-100">
-            <div className="flex items-center gap-2">
+            <Link to="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity duration-200" onClick={() => setIsMenuOpen(false)}>
               <img src={LogoPng} alt="Silva & Silva Logo" className="w-12 object-contain" />
               <h2 className="text-lg font-bold text-[#5a1317]" style={{ fontFamily: 'Poppins, sans-serif' }}>
                 Silva & Silva
               </h2>
-            </div>
+            </Link>
             <button
               onClick={() => setIsMenuOpen(false)}
               className="p-2 rounded-lg hover:bg-gray-100 transition-colors"
@@ -115,41 +116,41 @@ export default function Header() {
 
           <nav className="flex-1 py-6">
             <div className="flex flex-col space-y-2 px-6">
-              <a
+              <Link
                 className="flex items-center px-4 py-4 text-[#1C0D0F] text-lg font-medium rounded-xl hover:bg-gray-50 hover:text-[#5a1317] transition-all duration-200 transform hover:translate-x-1"
-                href="#"
+                to="/imoveis?tipo=comprar"
                 onClick={() => setIsMenuOpen(false)}
               >
                 <span className="ml-3">Comprar</span>
-              </a>
-              <a
+              </Link>
+              <Link
                 className="flex items-center px-4 py-4 text-[#1C0D0F] text-lg font-medium rounded-xl hover:bg-gray-50 hover:text-[#5a1317] transition-all duration-200 transform hover:translate-x-1"
-                href="#"
+                to="/imoveis?tipo=alugar"
                 onClick={() => setIsMenuOpen(false)}
               >
                 <span className="ml-3">Alugar</span>
-              </a>
-              <a
+              </Link>
+              <Link
                 className="flex items-center px-4 py-4 text-[#1C0D0F] text-lg font-medium rounded-xl hover:bg-gray-50 hover:text-[#5a1317] transition-all duration-200 transform hover:translate-x-1"
-                href="#"
+                to="/lancamentos"
                 onClick={() => setIsMenuOpen(false)}
               >
                 <span className="ml-3">Lançamentos</span>
-              </a>
-              <a
+              </Link>
+              <Link
                 className="flex items-center px-4 py-4 text-[#1C0D0F] text-lg font-medium rounded-xl hover:bg-gray-50 hover:text-[#5a1317] transition-all duration-200 transform hover:translate-x-1"
-                href="#"
+                to="/anuncie"
                 onClick={() => setIsMenuOpen(false)}
               >
                 <span className="ml-3">Anuncie</span>
-              </a>
-              <a
+              </Link>
+              <Link
                 className="flex items-center px-4 py-4 text-[#1C0D0F] text-lg font-medium rounded-xl hover:bg-gray-50 hover:text-[#5a1317] transition-all duration-200 transform hover:translate-x-1"
-                href="#"
+                to="/sobre"
                 onClick={() => setIsMenuOpen(false)}
               >
                 <span className="ml-3">Sobre</span>
-              </a>
+              </Link>
             </div>
           </nav>
 
