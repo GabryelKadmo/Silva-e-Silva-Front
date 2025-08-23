@@ -210,14 +210,18 @@ export default function LandingPage() {
               {/* Lado esquerdo - Texto principal */}
               <div className="space-y-6">
                 <h3 className="text-[#1b0e0f] text-2xl md:text-3xl font-bold leading-tight">
-                  Mais de <span className="text-[#5e0d12]">15 anos</span> transformando sonhos em realidade
+                  O novo jeito de <span className="text-[#5e0d12]">alugar</span> e <span className="text-[#5e0d12]">comprar</span> imóveis
                 </h3>
                 <div className="space-y-4 text-base leading-relaxed">
                   <p className="text-[#955055]">
-                    A <strong className="text-[#5e0d12] font-semibold">Silva & Silva</strong> nasceu da paixão de uma família em conectar pessoas aos seus lares ideais. Nossa história começou com dois irmãos que acreditavam que encontrar a casa perfeita deveria ser uma experiência única e memorável.
+                    A <strong className="text-[#5e0d12] font-semibold">Silva & Silva</strong> nasceu do encontro entre a visão do corretor Rodrigo Oliveira Silva e a experiência em tecnologia de Gleidson Levi Silva Mendes. Em um mercado dominado por grandes players, trazemos uma alternativa 100% digital, transparente e acessível para quem deseja comprar ou alugar imóveis no interior paulista.
+
                   </p>
                   <p className="text-[#955055]">
-                    Hoje, somos referência no mercado imobiliário pela nossa abordagem humanizada e pelo uso de tecnologia de ponta. Cada imóvel tem uma história, e nossa missão é encontrar a história perfeita para cada cliente.
+                    Nosso compromisso é simples: contratos claros, taxas justas e processos descomplicados, tudo resolvido em uma única plataforma. Sem burocracia, sem reuniões desnecessárias e sem deslocamentos à imobiliária.
+                  </p>
+                  <p className="text-[#955055]">
+                    Mais do que intermediar negócios, queremos redefinir a experiência imobiliária. Unimos tecnologia e proximidade humana para oferecer agilidade, autonomia e, acima de tudo, confiança em cada etapa da jornada.
                   </p>
                 </div>
 
@@ -244,11 +248,15 @@ export default function LandingPage() {
                   <div
                     className="w-full h-80 md:h-96 bg-cover bg-center"
                     style={{
-                      backgroundImage: 'url("https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80")'
+                      backgroundImage: 'url("https://i.imgur.com/JhWHd9t.png")',
+                      imageRendering: '-webkit-optimize-contrast',
+                      // filter: 'contrast(1) brightness(1.05)',
+                      transform: 'translateZ(0)',
+                      backfaceVisibility: 'hidden'
                     }}
                   ></div>
                   {/* Overlay com padrão */}
-                  <div className="absolute inset-0 bg-gradient-to-tr from-[#5e0d12]/20 to-transparent"></div>
+                  {/* <div className="absolute inset-0 bg-gradient-to-tr from-[#5e0d12]/20 to-transparent"></div> */}
                 </div>
               </div>
             </div>
@@ -356,7 +364,7 @@ export default function LandingPage() {
                     <Button className="flex-1 bg-[#5e0d12] hover:bg-[#4a0a0f] text-white h-10 text-sm font-semibold">
                       Ver Plantas
                     </Button>
-                    <Button variant="outline" className="flex-1 bg-white/30 border-[#5e0d12] text-[#5e0d12] hover:text-[#5e0d12] h-10 text-sm font-medium">
+                    <Button variant="outline" className="flex-1 bg-red-50 border-gray-200 text-[#5e0d12] hover:text-[#5e0d12] h-10 text-sm font-medium">
                       Agendar Visita
                     </Button>
                   </div>
@@ -407,7 +415,7 @@ export default function LandingPage() {
                     <Button className="flex-1 bg-[#5e0d12] hover:bg-[#4a0a0f] text-white h-10 text-sm font-semibold">
                       Ver Plantas
                     </Button>
-                    <Button variant="outline" className="flex-1 bg-white/30 border-[#5e0d12] text-[#5e0d12] hover:text-[#5e0d12] h-10 text-sm font-medium">
+                    <Button variant="outline" className="flex-1 bg-red-50 border-gray-200 text-[#5e0d12] hover:text-[#5e0d12] h-10 text-sm font-medium">
                       Agendar Visita
                     </Button>
                   </div>
@@ -468,7 +476,7 @@ export default function LandingPage() {
                 <Button className="flex-1 bg-[#5e0d12] hover:bg-[#4a0a0f] text-white h-12 text-base font-semibold">
                   Cadastrar Interesse
                 </Button>
-                <Button variant="outline" className="flex-1 bg-white/30 border-[#5e0d12] text-[#5e0d12] hover:text-[#5e0d12] h-12 px-6 text-base font-medium min-w-[180px]">
+                <Button variant="outline" className="flex-1 bg-red-50 border-gray-200 text-[#5e0d12] hover:text-[#5e0d12] h-12 px-6 text-base font-medium min-w-[180px]">
                   Falar com Consultor
                 </Button>
               </div>
