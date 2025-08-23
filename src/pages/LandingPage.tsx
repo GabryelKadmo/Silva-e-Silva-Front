@@ -15,9 +15,9 @@ export default function LandingPage() {
 
         {/* ===== SEÇÃO HERO (Banner Principal) ===== */}
         <div className="@container">
-          <div className="@[480px]:p-4">
+          <div className="px-4 @[480px]:p-4">
             <div
-              className="flex min-h-[520px] lg:min-h-[580px] flex-col gap-6 bg-cover bg-no-repeat @[480px]:gap-8 @[480px]:rounded-lg items-start justify-end px-4 pb-10 @[480px]:px-10"
+              className="flex min-h-[520px] lg:min-h-[580px] flex-col gap-6 bg-cover bg-no-repeat @[480px]:gap-8 rounded-lg @[480px]:rounded-lg items-start justify-end px-4 pb-10 @[480px]:px-10"
               style={{
                 backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.6) 100%), url("https://i.imgur.com/TEtjzR2.png")`,
                 backgroundPosition: 'center 20%'
