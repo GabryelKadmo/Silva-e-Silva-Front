@@ -106,21 +106,21 @@ export default function ImoveisPage() {
     return (
         <div className="min-h-screen bg-[#fbf8f9]" style={{ fontFamily: '"Plus Jakarta Sans", "Noto Sans", sans-serif' }}>
             {/* Container principal */}
-            <div className="px-10 lg:px-40 py-5">
+            <div className="px-4 sm:px-10 lg:px-40 py-3 sm:py-5">
                 <div className="max-w-7xl mx-auto">
 
                     {/* Campo de busca fora do mapa */}
-                    <div>
-                        <label className="flex flex-col min-w-40 h-12">
+                    <div className="mb-3">
+                        <label className="flex flex-col min-w-40 h-10 sm:h-12">
                             <div className="flex w-full flex-1 items-stretch rounded-lg h-full shadow-sm">
-                                <div className="text-[#955055] flex border-none bg-white items-center justify-center pl-4 rounded-l-lg border-r-0">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
+                                <div className="text-[#955055] flex border-none bg-white items-center justify-center pl-3 sm:pl-4 rounded-l-lg border-r-0">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="currentColor" viewBox="0 0 256 256" className="sm:w-6 sm:h-6">
                                         <path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"></path>
                                     </svg>
                                 </div>
                                 <input
-                                    placeholder="Buscar por cidade, bairro, endereço ou CEP"
-                                    className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#1b0e0f] focus:outline-0 focus:ring-0 border-none bg-white focus:border-none h-full placeholder:text-[#955055] px-4 rounded-l-none border-l-0 pl-2 text-base font-normal leading-normal"
+                                    placeholder="Buscar por bairro ou endereço"
+                                    className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#1b0e0f] focus:outline-0 focus:ring-0 border-none bg-white focus:border-none h-full placeholder:text-[#955055] px-2 sm:px-4 rounded-l-none border-l-0 pl-2 text-sm sm:text-base font-normal leading-normal"
                                     value={searchTerm}
                                     onChange={(e) => setSearchTerm(e.target.value)}
                                 />
@@ -130,8 +130,8 @@ export default function ImoveisPage() {
 
                     {/* Seção do Mapa */}
                     <div className="flex flex-col h-full flex-1">
-                        <div className="flex flex-1 flex-col py-3">
-                            <div className="relative min-h-[400px] flex-1 flex flex-col justify-between px-0 pb-4 pt-5 rounded-lg overflow-hidden">
+                        <div className="flex flex-1 flex-col py-2 sm:py-3">
+                            <div className="relative min-h-[300px] sm:min-h-[400px] flex-1 flex flex-col justify-between px-0 pb-3 sm:pb-4 pt-3 sm:pt-5 rounded-lg overflow-hidden">
 
                                 {/* Mapa do Leaflet */}
                                 <MapContainer
@@ -147,7 +147,7 @@ export default function ImoveisPage() {
                                     scrollWheelZoom={true}
                                     doubleClickZoom={true}
                                     dragging={true}
-                                    className="w-full h-full min-h-[400px] rounded-lg z-0"
+                                    className="w-full h-full min-h-[300px] sm:min-h-[400px] rounded-lg z-0"
                                     style={{ zIndex: 0 }}
                                 >
                                     <TileLayer
@@ -211,53 +211,61 @@ export default function ImoveisPage() {
                     </div>
 
                     {/* Filtros */}
-                    <div className="flex gap-3 p-3 flex-wrap pr-4">
-                        <button className="flex h-8 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-[#f3e8e9] pl-4 pr-2 hover:bg-[#e8d5d7] transition-colors">
-                            <p className="text-[#1b0e0f] text-sm font-medium leading-normal">Tipo de Imóvel</p>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="currentColor" viewBox="0 0 256 256">
+                    <div className="flex gap-2 sm:gap-3 p-2 sm:p-3 flex-wrap pr-2 sm:pr-4 overflow-x-auto">
+                        <button className="flex h-7 sm:h-8 shrink-0 items-center justify-center gap-x-1 sm:gap-x-2 rounded-lg bg-[#f3e8e9] pl-2 sm:pl-4 pr-1 sm:pr-2 hover:bg-[#e8d5d7] transition-colors whitespace-nowrap">
+                            <p className="text-[#1b0e0f] text-xs sm:text-sm font-medium leading-normal">Tipo</p>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" fill="currentColor" viewBox="0 0 256 256" className="sm:w-5 sm:h-5">
                                 <path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"></path>
                             </svg>
                         </button>
-                        <button className="flex h-8 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-[#f3e8e9] pl-4 pr-2 hover:bg-[#e8d5d7] transition-colors">
-                            <p className="text-[#1b0e0f] text-sm font-medium leading-normal">Localização</p>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="currentColor" viewBox="0 0 256 256">
+                        <button className="flex h-7 sm:h-8 shrink-0 items-center justify-center gap-x-1 sm:gap-x-2 rounded-lg bg-[#f3e8e9] pl-2 sm:pl-4 pr-1 sm:pr-2 hover:bg-[#e8d5d7] transition-colors whitespace-nowrap">
+                            <p className="text-[#1b0e0f] text-xs sm:text-sm font-medium leading-normal">Local</p>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" fill="currentColor" viewBox="0 0 256 256" className="sm:w-5 sm:h-5">
                                 <path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"></path>
                             </svg>
                         </button>
-                        <button className="flex h-8 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-[#f3e8e9] pl-4 pr-2 hover:bg-[#e8d5d7] transition-colors">
-                            <p className="text-[#1b0e0f] text-sm font-medium leading-normal">Faixa de Preço</p>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="currentColor" viewBox="0 0 256 256">
+                        <button className="flex h-7 sm:h-8 shrink-0 items-center justify-center gap-x-1 sm:gap-x-2 rounded-lg bg-[#f3e8e9] pl-2 sm:pl-4 pr-1 sm:pr-2 hover:bg-[#e8d5d7] transition-colors whitespace-nowrap">
+                            <p className="text-[#1b0e0f] text-xs sm:text-sm font-medium leading-normal">Preço</p>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" fill="currentColor" viewBox="0 0 256 256" className="sm:w-5 sm:h-5">
                                 <path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"></path>
                             </svg>
                         </button>
-                        <button className="flex h-8 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-[#f3e8e9] pl-4 pr-2 hover:bg-[#e8d5d7] transition-colors">
-                            <p className="text-[#1b0e0f] text-sm font-medium leading-normal">Quartos</p>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="currentColor" viewBox="0 0 256 256">
+                        <button className="flex h-7 sm:h-8 shrink-0 items-center justify-center gap-x-1 sm:gap-x-2 rounded-lg bg-[#f3e8e9] pl-2 sm:pl-4 pr-1 sm:pr-2 hover:bg-[#e8d5d7] transition-colors whitespace-nowrap">
+                            <p className="text-[#1b0e0f] text-xs sm:text-sm font-medium leading-normal">Quartos</p>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" fill="currentColor" viewBox="0 0 256 256" className="sm:w-5 sm:h-5">
                                 <path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"></path>
                             </svg>
                         </button>
-                        <button className="flex h-8 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-[#f3e8e9] pl-4 pr-2 hover:bg-[#e8d5d7] transition-colors">
-                            <p className="text-[#1b0e0f] text-sm font-medium leading-normal">Banheiros</p>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="currentColor" viewBox="0 0 256 256">
+                        <button className="flex h-7 sm:h-8 shrink-0 items-center justify-center gap-x-1 sm:gap-x-2 rounded-lg bg-[#f3e8e9] pl-2 sm:pl-4 pr-1 sm:pr-2 hover:bg-[#e8d5d7] transition-colors whitespace-nowrap">
+                            <p className="text-[#1b0e0f] text-xs sm:text-sm font-medium leading-normal">Banheiros</p>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" fill="currentColor" viewBox="0 0 256 256" className="sm:w-5 sm:h-5">
                                 <path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"></path>
                             </svg>
                         </button>
                     </div>
 
                     {/* Grid de Imóveis */}
-                    <div className="grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))] gap-4 p-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[repeat(auto-fit,minmax(280px,1fr))] gap-3 sm:gap-4 p-3 sm:p-4">
                         {mockImoveis.map((imovel) => (
-                            <div key={imovel.id} className="flex flex-col gap-3 pb-3 cursor-pointer hover:shadow-lg transition-shadow rounded-lg p-2">
+                            <div key={imovel.id} className="flex flex-col gap-2 sm:gap-3 pb-2 sm:pb-3 cursor-pointer hover:shadow-lg transition-shadow rounded-lg p-2 bg-white">
                                 <div
                                     className="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-lg"
                                     style={{ backgroundImage: `url("${imovel.imagem}")` }}
                                 />
-                                <div>
-                                    <p className="text-[#1b0e0f] text-base font-medium leading-normal">{imovel.endereco}</p>
-                                    <p className="text-[#955055] text-sm font-normal leading-normal">
-                                        {imovel.quartos} quartos · {imovel.banheiros} banheiros · {imovel.area} m²
-                                    </p>
-                                    <p className="text-[#955055] text-sm font-normal leading-normal">
+                                <div className="px-1">
+                                    <p className="text-[#1b0e0f] text-sm sm:text-base font-medium leading-tight mb-1">{imovel.endereco}</p>
+                                    <div className="flex flex-wrap gap-1 mb-2">
+                                        <span className="text-xs text-[#955055] bg-gray-100 px-2 py-1 rounded">
+                                            {imovel.quartos} quartos
+                                        </span>
+                                        <span className="text-xs text-[#955055] bg-gray-100 px-2 py-1 rounded">
+                                            {imovel.banheiros} banheiros
+                                        </span>
+                                        <span className="text-xs text-[#955055] bg-gray-100 px-2 py-1 rounded">
+                                            {imovel.area} m²
+                                        </span>
+                                    </div>
+                                    <p className="text-[#5e0d12] text-lg sm:text-xl font-bold">
                                         R$ {imovel.preco.toLocaleString('pt-BR')}
                                     </p>
                                 </div>
@@ -266,19 +274,19 @@ export default function ImoveisPage() {
                     </div>
 
                     {/* Paginação */}
-                    <div className="flex items-center justify-center p-4">
-                        <button className="flex size-10 items-center justify-center hover:bg-gray-100 rounded-full transition-colors">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" fill="currentColor" viewBox="0 0 256 256">
+                    <div className="flex items-center justify-center p-3 sm:p-4 gap-1 sm:gap-2">
+                        <button className="flex size-8 sm:size-10 items-center justify-center hover:bg-gray-100 rounded-full transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" fill="currentColor" viewBox="0 0 256 256" className="sm:w-[18px] sm:h-[18px]">
                                 <path d="M165.66,202.34a8,8,0,0,1-11.32,11.32l-80-80a8,8,0,0,1,0-11.32l80-80a8,8,0,0,1,11.32,11.32L91.31,128Z"></path>
                             </svg>
                         </button>
-                        <button className="text-sm font-bold leading-normal tracking-[0.015em] flex size-10 items-center justify-center text-[#1b0e0f] rounded-full bg-[#f3e8e9]">1</button>
-                        <button className="text-sm font-normal leading-normal flex size-10 items-center justify-center text-[#1b0e0f] rounded-full hover:bg-gray-100 transition-colors">2</button>
-                        <button className="text-sm font-normal leading-normal flex size-10 items-center justify-center text-[#1b0e0f] rounded-full hover:bg-gray-100 transition-colors">3</button>
-                        <button className="text-sm font-normal leading-normal flex size-10 items-center justify-center text-[#1b0e0f] rounded-full hover:bg-gray-100 transition-colors">4</button>
-                        <button className="text-sm font-normal leading-normal flex size-10 items-center justify-center text-[#1b0e0f] rounded-full hover:bg-gray-100 transition-colors">5</button>
-                        <button className="flex size-10 items-center justify-center hover:bg-gray-100 rounded-full transition-colors">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" fill="currentColor" viewBox="0 0 256 256">
+                        <button className="text-xs sm:text-sm font-bold leading-normal tracking-[0.015em] flex size-8 sm:size-10 items-center justify-center text-[#1b0e0f] rounded-full bg-[#f3e8e9]">1</button>
+                        <button className="text-xs sm:text-sm font-normal leading-normal flex size-8 sm:size-10 items-center justify-center text-[#1b0e0f] rounded-full hover:bg-gray-100 transition-colors">2</button>
+                        <button className="text-xs sm:text-sm font-normal leading-normal flex size-8 sm:size-10 items-center justify-center text-[#1b0e0f] rounded-full hover:bg-gray-100 transition-colors">3</button>
+                        <button className="hidden sm:flex text-sm font-normal leading-normal size-10 items-center justify-center text-[#1b0e0f] rounded-full hover:bg-gray-100 transition-colors">4</button>
+                        <button className="hidden sm:flex text-sm font-normal leading-normal size-10 items-center justify-center text-[#1b0e0f] rounded-full hover:bg-gray-100 transition-colors">5</button>
+                        <button className="flex size-8 sm:size-10 items-center justify-center hover:bg-gray-100 rounded-full transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" fill="currentColor" viewBox="0 0 256 256" className="sm:w-[18px] sm:h-[18px]">
                                 <path d="M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z"></path>
                             </svg>
                         </button>
