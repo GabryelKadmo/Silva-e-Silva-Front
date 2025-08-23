@@ -195,7 +195,7 @@ export default function LandingPage() {
 
 
         {/* ===== SEÇÃO SOBRE NÓS ===== */}
-        <div className="px-4 py-16 md:py-24" id="about">
+        <div className="px-4 py-16 md:py-6" id="about">
           <div className="max-w-7xl">
             {/* Cabeçalho da seção */}
             {/* <div className="text-center mb-16">
@@ -254,7 +254,7 @@ export default function LandingPage() {
             </div>
 
             {/* Seção de valores/diferenciais */}
-            <div className="border-t border-[#e6d1d2] pt-16">
+            <div className="border-t border-[#e6d1d2] pt-6">
               <h4 className="text-[#1b0e0f] text-xl font-bold text-center my-16">
                 Nossos Diferenciais
               </h4>
@@ -293,23 +293,12 @@ export default function LandingPage() {
                   </p>
                 </div>
               </div>
-
-            </div>
-
-            {/* Call to action */}
-            <div className="text-center mt-16">
-              <div className="inline-flex items-center gap-2 bg-[#5e0d12]/5 text-[#5e0d12] px-6 py-3 rounded-full text-sm font-medium">
-                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
-                </svg>
-                Conheça nossa equipe e descubra como podemos ajudar você
-              </div>
             </div>
           </div>
         </div>
 
         {/* ===== SEÇÃO LANÇAMENTOS EXCLUSIVOS NA PLANTA ===== */}
-        <div className="px-4 py-16 md:py-24">
+        <div className="px-4 py-16 md:py-20">
           <div className="max-w-7xl mx-auto">
             {/* Cabeçalho da seção */}
             <div className="text-center mb-16">
@@ -367,7 +356,7 @@ export default function LandingPage() {
                     <Button className="flex-1 bg-[#5e0d12] hover:bg-[#4a0a0f] text-white h-10 text-sm font-semibold">
                       Ver Plantas
                     </Button>
-                    <Button variant="outline" className="flex-1 border-[#5e0d12] text-[#5e0d12] hover:bg-[#5e0d12] hover:text-white h-10 text-sm font-medium">
+                    <Button variant="outline" className="flex-1 bg-white/30 border-[#5e0d12] text-[#5e0d12] hover:text-[#5e0d12] h-10 text-sm font-medium">
                       Agendar Visita
                     </Button>
                   </div>
@@ -418,7 +407,7 @@ export default function LandingPage() {
                     <Button className="flex-1 bg-[#5e0d12] hover:bg-[#4a0a0f] text-white h-10 text-sm font-semibold">
                       Ver Plantas
                     </Button>
-                    <Button variant="outline" className="flex-1 border-[#5e0d12] text-[#5e0d12] hover:bg-[#5e0d12] hover:text-white h-10 text-sm font-medium">
+                    <Button variant="outline" className="flex-1 bg-white/30 border-[#5e0d12] text-[#5e0d12] hover:text-[#5e0d12] h-10 text-sm font-medium">
                       Agendar Visita
                     </Button>
                   </div>
@@ -479,7 +468,7 @@ export default function LandingPage() {
                 <Button className="flex-1 bg-[#5e0d12] hover:bg-[#4a0a0f] text-white h-12 text-base font-semibold">
                   Cadastrar Interesse
                 </Button>
-                <Button variant="outline" className="flex-1 bg-white/30 border-[#5e0d12] text-[#5e0d12]  h-12 px-6 text-base font-medium min-w-[180px]">
+                <Button variant="outline" className="flex-1 bg-white/30 border-[#5e0d12] text-[#5e0d12] hover:text-[#5e0d12] h-12 px-6 text-base font-medium min-w-[180px]">
                   Falar com Consultor
                 </Button>
               </div>
