@@ -131,6 +131,13 @@
     @apply bg-background text-foreground font-sans;
     font-family: "Poppins", system-ui, sans-serif;
   }
+  /* Desabilita scroll suave para mudanças de rota */
+  .no-smooth-scroll {
+    scroll-behavior: auto !important;
+  }
+  .no-smooth-scroll * {
+    scroll-behavior: auto !important;
+  }
 }
 
 /* Scrollbar customizada clara */
