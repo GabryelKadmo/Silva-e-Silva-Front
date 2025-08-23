@@ -367,7 +367,7 @@ export default function LandingPage() {
                     <Button className="flex-1 bg-[#5e0d12] hover:bg-[#4a0a0f] text-white h-10 text-sm font-semibold">
                       Ver Plantas
                     </Button>
-                    <Button variant="outline" className="flex-1 bg-red-50 border-gray-200 text-[#5e0d12] hover:text-[#5e0d12] h-10 text-sm font-medium">
+                    <Button variant="outline" className="flex-1 bg-red-50 border border-[#e6d1d2] text-[#5e0d12] hover:bg-red-100/60 hover:border-red-300/30 hover:text-[#5e0d12] h-10 text-sm font-medium">
                       Agendar Visita
                     </Button>
                   </div>
@@ -418,7 +418,10 @@ export default function LandingPage() {
                     <Button className="flex-1 bg-[#5e0d12] hover:bg-[#4a0a0f] text-white h-10 text-sm font-semibold">
                       Ver Plantas
                     </Button>
-                    <Button variant="outline" className="flex-1 bg-red-50 border-gray-200 text-[#5e0d12] hover:text-[#5e0d12] h-10 text-sm font-medium">
+                    <Button
+                      variant="outline"
+                      className="flex-1 bg-red-50 border border-[#e6d1d2] text-[#5e0d12] hover:bg-red-100/60 hover:border-red-300/30 hover:text-[#5e0d12] h-10 text-sm font-medium"
+                    >
                       Agendar Visita
                     </Button>
                   </div>
