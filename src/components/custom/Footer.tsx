@@ -45,7 +45,7 @@ export default function Footer() {
                         <div className="space-y-3">
                             <div className="flex items-center gap-3 text-sm text-gray-300">
                                 <FaPhone className="w-4 h-4 text-white flex-shrink-0" />
-                                <span>(16) 99254-6594</span>
+                                <span>(16) 9 9407-5014</span>
                             </div>
                             <div className="flex items-center gap-3 text-sm text-gray-300">
                                 <FaEnvelope className="w-4 h-4 text-white flex-shrink-0" />

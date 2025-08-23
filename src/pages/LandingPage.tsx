@@ -1,7 +1,14 @@
 import { Button } from "@/components/ui/button";
-import { FaUserFriends, FaMicrochip, FaEye } from "react-icons/fa";
+import { FaBuilding, FaClock, FaEye, FaMapMarkedAlt, FaMicrochip, FaPercentage, FaUserFriends } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 export default function LandingPage() {
+  const navigate = useNavigate();
+
+  const handleNavigateToImoveis = () => {
+    navigate("/imoveis");
+  };
+
   return (
     <div className="flex flex-1 justify-center py-5">
       <div className="layout-content-container flex flex-col max-w-[1260px] flex-1">
@@ -12,19 +19,19 @@ export default function LandingPage() {
             <div
               className="flex min-h-[520px] lg:min-h-[580px] flex-col gap-6 bg-cover bg-no-repeat @[480px]:gap-8 @[480px]:rounded-lg items-start justify-end px-4 pb-10 @[480px]:px-10"
               style={{
-                backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.6) 100%), url("https://i.imgur.com/oCkWnf9.jpeg")`,
+                backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.6) 100%), url("https://i.imgur.com/TEtjzR2.png")`,
                 backgroundPosition: 'center 20%'
               }}
             >
               <div className="flex flex-col gap-2 text-left">
                 <h1 className="text-white text-4xl font-black leading-tight tracking-[-0.033em] @[480px]:text-5xl @[480px]:font-black @[480px]:leading-tight @[480px]:tracking-[-0.033em]">
-                  Encontre o lar perfeito
+                  Todo mundo conhece um Silva
                 </h1>
                 <h2 className="text-white text-sm font-normal leading-normal @[480px]:text-base @[480px]:font-normal @[480px]:leading-normal">
                   Explore uma ampla gama de propriedades adaptadas às suas necessidades e preferências. Nossa equipe especializada está aqui para guiá-lo em cada etapa do processo.
                 </h2>
               </div>
-              <Button className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 @[480px]:h-12 @[480px]:px-5 bg-[#5e0d12] hover:bg-[#4a0a0f] text-[#fbf8f9] leading-normal @[480px]:text-base @[480px]:font-bold @[480px]:leading-normal @[480px]:tracking-[0.015em]">
+              <Button onClick={handleNavigateToImoveis} className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 @[480px]:h-12 @[480px]:px-5 bg-[#5e0d12] hover:bg-[#4a0a0f] text-[#fbf8f9] leading-normal @[480px]:text-base @[480px]:font-bold @[480px]:leading-normal @[480px]:tracking-[0.015em]">
                 <span className="truncate">Explorar Propriedades</span>
               </Button>
             </div>
@@ -109,7 +116,7 @@ export default function LandingPage() {
                 }}
               ></div>
               <div className="absolute top-4 left-4 bg-[#5e0d12] text-white px-3 py-1 rounded-full text-xs font-semibold">
-                Mansão
+                Casa
               </div>
               <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm text-[#5e0d12] px-3 py-1 rounded-full text-sm font-bold">
                 R$ 1.850.000
@@ -181,83 +188,14 @@ export default function LandingPage() {
                     Falar com Consultor
                   </Button>
                 </div>
-
-                {/* Informação Adicional */}
-                {/* <div className="mt-6 text-center">
-                  <p className="text-xs text-white/60">
-                    🏆 Mais de <span className="font-semibold text-white/80">500 imóveis vendidos</span> •
-                    ⭐ <span className="font-semibold text-white/80">4.9/5</span> de satisfação
-                  </p>
-                </div> */}
               </div>
             </div>
           </div>
         </div>
 
-        {/* ===== SEÇÃO NOSSOS SERVIÇOS ===== */}
-        <h2 className="text-[#1b0e0f] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 py-10">
-          Nossos Serviços
-        </h2>
-        <div className="grid grid-cols-[repeat(auto-fit,minmax(158px,1fr))] gap-3 p-4">
-          <div className="flex flex-1 gap-3 rounded-lg border border-[#e6d1d2] bg-[#fbf8f9] p-4 flex-col">
-            <div className="text-[#1b0e0f]">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
-                <path d="M218.83,103.77l-80-75.48a1.14,1.14,0,0,1-.11-.11,16,16,0,0,0-21.53,0l-.11.11L37.17,103.77A16,16,0,0,0,32,115.55V208a16,16,0,0,0,16,16H96a16,16,0,0,0,16-16V160h32v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V115.55A16,16,0,0,0,218.83,103.77ZM208,208H160V160a16,16,0,0,0-16-16H112a16,16,0,0,0-16,16v48H48V115.55l.11-.1L128,40l79.9,75.43.11.1Z"></path>
-              </svg>
-            </div>
-            <div className="flex flex-col gap-1">
-              <h2 className="text-[#1b0e0f] text-base font-bold leading-tight">Compra</h2>
-              <p className="text-[#955055] text-sm font-normal leading-normal">
-                Encontre a casa perfeita para você e sua família.
-              </p>
-            </div>
-          </div>
-
-          <div className="flex flex-1 gap-3 rounded-lg border border-[#e6d1d2] bg-[#fbf8f9] p-4 flex-col">
-            <div className="text-[#1b0e0f]">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
-                <path d="M218.83,103.77l-80-75.48a1.14,1.14,0,0,1-.11-.11,16,16,0,0,0-21.53,0l-.11.11L37.17,103.77A16,16,0,0,0,32,115.55V208a16,16,0,0,0,16,16H96a16,16,0,0,0,16-16V160h32v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V115.55A16,16,0,0,0,218.83,103.77ZM208,208H160V160a16,16,0,0,0-16-16H112a16,16,0,0,0-16,16v48H48V115.55l.11-.1L128,40l79.9,75.43.11.1Z"></path>
-              </svg>
-            </div>
-            <div className="flex flex-col gap-1">
-              <h2 className="text-[#1b0e0f] text-base font-bold leading-tight">Venda</h2>
-              <p className="text-[#955055] text-sm font-normal leading-normal">
-                Venda seu imóvel com a ajuda de nossos especialistas.
-              </p>
-            </div>
-          </div>
-
-          <div className="flex flex-1 gap-3 rounded-lg border border-[#e6d1d2] bg-[#fbf8f9] p-4 flex-col">
-            <div className="text-[#1b0e0f]">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
-                <path d="M160,16A80.07,80.07,0,0,0,83.91,120.78L26.34,178.34A8,8,0,0,0,24,184v40a8,8,0,0,0,8,8H72a8,8,0,0,0,8-8V208H96a8,8,0,0,0,8-8V184h16a8,8,0,0,0,5.66-2.34l9.56-9.57A80,80,0,1,0,160,16Zm0,144a63.7,63.7,0,0,1-23.65-4.51,8,8,0,0,0-8.84,1.68L116.69,168H96a8,8,0,0,0-8,8v16H72a8,8,0,0,0-8,8v16H40V187.31l58.83-58.82a8,8,0,0,0,1.68-8.84A64,64,0,1,1,160,160Zm32-84a12,12,0,1,1-12-12A12,12,0,0,1,192,76Z"></path>
-              </svg>
-            </div>
-            <div className="flex flex-col gap-1">
-              <h2 className="text-[#1b0e0f] text-base font-bold leading-tight">Aluguel</h2>
-              <p className="text-[#955055] text-sm font-normal leading-normal">
-                Alugue o imóvel ideal com as melhores condições.
-              </p>
-            </div>
-          </div>
-
-          <div className="flex flex-1 gap-3 rounded-lg border border-[#e6d1d2] bg-[#fbf8f9] p-4 flex-col">
-            <div className="text-[#1b0e0f]">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
-                <path d="M119.76,217.94A8,8,0,0,1,112,224a8.13,8.13,0,0,1-2-.24l-32-8a8,8,0,0,1-2.5-1.11l-24-16a8,8,0,1,1,8.88-13.31l22.84,15.23,30.66,7.67A8,8,0,0,1,119.76,217.94Zm132.69-96.46a15.89,15.89,0,0,1-8,9.25l-23.68,11.84-55.08,55.09a8,8,0,0,1-7.6,2.1l-64-16a8.06,8.06,0,0,1-2.71-1.25L35.86,142.87,11.58,130.73a16,16,0,0,1-7.16-21.46L29.27,59.58h0a16,16,0,0,1,21.46-7.16l22.06,11,53-15.14a8,8,0,0,1,4.4,0l53,15.14,22.06-11a16,16,0,0,1,21.46,7.16l24.85,49.69A15.9,15.9,0,0,1,252.45,121.48Zm-46.18,12.94L179.06,80H147.24L104,122c12.66,8.09,32.51,10.32,50.32-7.63a8,8,0,0,1,10.68-.61l34.41,27.57Zm-187.54-18,17.69,8.85L61.27,75.58,43.58,66.73ZM188,152.66l-27.71-22.19c-19.54,16-44.35,18.11-64.91,5a16,16,0,0,1-2.72-24.82.6.6,0,0,1,.08-.08L137.6,67.06,128,64.32,77.58,78.73,50.21,133.46l49.2,35.15,58.14,14.53Zm49.24-36.24L212.42,66.73l-17.69,8.85,24.85,49.69Z"></path>
-              </svg>
-            </div>
-            <div className="flex flex-col gap-1">
-              <h2 className="text-[#1b0e0f] text-base font-bold leading-tight">Consultoria</h2>
-              <p className="text-[#955055] text-sm font-normal leading-normal">
-                Conte com nossa consultoria para tomar as melhores decisões.
-              </p>
-            </div>
-          </div>
-        </div>
 
         {/* ===== SEÇÃO SOBRE NÓS ===== */}
-        <div className="px-4 py-16 md:py-24">
+        <div className="px-4 py-16 md:py-24" id="about">
           <div className="max-w-7xl">
             {/* Cabeçalho da seção */}
             {/* <div className="text-center mb-16">
@@ -284,7 +222,7 @@ export default function LandingPage() {
                 </div>
 
                 {/* Estatísticas */}
-                <div className="grid grid-cols-3 gap-4 pt-6">
+                {/* <div className="grid grid-cols-3 gap-4 pt-6">
                   <div className="text-center">
                     <div className="text-2xl font-bold text-[#5e0d12]">500+</div>
                     <div className="text-sm text-[#955055] font-medium">Imóveis Vendidos</div>
@@ -297,7 +235,7 @@ export default function LandingPage() {
                     <div className="text-2xl font-bold text-[#5e0d12]">15+</div>
                     <div className="text-sm text-[#955055] font-medium">Anos de Experiência</div>
                   </div>
-                </div>
+                </div> */}
               </div>
 
               {/* Lado direito - Imagem */}
@@ -327,9 +265,9 @@ export default function LandingPage() {
                   <div className="w-16 h-16 bg-[#5e0d12]/10 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-[#5e0d12]/20 transition-colors duration-300">
                     <FaUserFriends className="w-8 h-8 text-[#5e0d12]" />
                   </div>
-                  <h5 className="text-[#1b0e0f] font-bold mb-2">Atendimento Personalizado</h5>
+                  <h5 className="text-[#1b0e0f] font-bold mb-2">Consultoria Especializada</h5>
                   <p className="text-[#955055] text-sm leading-relaxed">
-                    Cada cliente recebe atenção exclusiva com consultores especializados em suas necessidades específicas.
+                    Suporte completo para quem deseja alugar, comprar ou financiar, com orientação feita por especialistas em cada etapa.
                   </p>
                 </div>
 
@@ -338,9 +276,9 @@ export default function LandingPage() {
                   <div className="w-16 h-16 bg-[#5e0d12]/10 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-[#5e0d12]/20 transition-colors duration-300">
                     <FaMicrochip className="w-8 h-8 text-[#5e0d12]" />
                   </div>
-                  <h5 className="text-[#1b0e0f] font-bold mb-2">Tecnologia Avançada</h5>
+                  <h5 className="text-[#1b0e0f] font-bold mb-2">Plataforma 100% Digital</h5>
                   <p className="text-[#955055] text-sm leading-relaxed">
-                    Utilizamos ferramentas modernas como tours virtuais, IA para precificação e CRM integrado.
+                    Pesquise, agende visitas virtuais, envie propostas e acompanhe seu financiamento sem burocracia, tudo online.
                   </p>
                 </div>
 
@@ -349,12 +287,13 @@ export default function LandingPage() {
                   <div className="w-16 h-16 bg-[#5e0d12]/10 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-[#5e0d12]/20 transition-colors duration-300">
                     <FaEye className="w-8 h-8 text-[#5e0d12]" />
                   </div>
-                  <h5 className="text-[#1b0e0f] font-bold mb-2">Transparência Total</h5>
+                  <h5 className="text-[#1b0e0f] font-bold mb-2">Negócios Transparentes</h5>
                   <p className="text-[#955055] text-sm leading-relaxed">
-                    Processo claro desde o primeiro contato, com relatórios detalhados e comunicação constante.
+                    Informações claras sobre valores, contratos e condições de financiamento, garantindo segurança em cada decisão.
                   </p>
                 </div>
               </div>
+
             </div>
 
             {/* Call to action */}
@@ -369,18 +308,179 @@ export default function LandingPage() {
           </div>
         </div>
 
-        {/* ===== SEÇÃO CALL TO ACTION (Chamada Final) ===== */}
-        <div className="@container">
-          <div className="flex flex-col items-center justify-end gap-6 px-4 py-10 @[480px]:gap-8 @[480px]:px-10 @[480px]:py-20">
-            <div className="flex flex-col gap-2 text-center">
-              <h1 className="text-[#1b0e0f] tracking-light text-[32px] font-bold leading-tight @[480px]:text-4xl @[480px]:font-black @[480px]:leading-tight @[480px]:tracking-[-0.033em] max-w-[720px]">
-                Pronto para encontrar o lar dos seus sonhos?
-              </h1>
+        {/* ===== SEÇÃO LANÇAMENTOS EXCLUSIVOS NA PLANTA ===== */}
+        <div className="px-4 py-16 md:py-24">
+          <div className="max-w-7xl mx-auto">
+            {/* Cabeçalho da seção */}
+            <div className="text-center mb-16">
+              <h2 className="text-[#1b0e0f] text-3xl md:text-4xl font-bold leading-tight mb-4">
+                Empreendimentos <span className="text-[#5e0d12]">na Planta</span>
+              </h2>
+              <p className="text-[#955055] text-lg max-w-2xl mx-auto">
+                Oportunidades únicas com preços promocionais e condições especiais para quem investe no futuro
+              </p>
             </div>
-            <div className="flex flex-1 justify-center">
-              <div className="flex justify-center">
-                <Button className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 @[480px]:h-12 @[480px]:px-5 bg-[#5e0d12] hover:bg-[#4a0a0f] text-[#fbf8f9] text-sm font-bold leading-normal tracking-[0.015em] @[480px]:text-base @[480px]:font-bold @[480px]:leading-normal @[480px]:tracking-[0.015em] grow">
-                  <span className="truncate">Fale Conosco</span>
+
+            {/* Grid de lançamentos */}
+            <div className="grid lg:grid-cols-2 gap-8 mb-16">
+              {/* Lançamento 1 */}
+              <div className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-100">
+                <div className="relative overflow-hidden">
+                  <div
+                    className="w-full h-64 bg-cover bg-center transition-transform duration-300 group-hover:scale-105"
+                    style={{
+                      backgroundImage: 'url("https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80")'
+                    }}
+                  ></div>
+                  <div className="absolute top-4 left-4">
+                    <div className="bg-[#5e0d12] text-white px-3 py-1 rounded-full text-xs font-semibold mb-2">
+                      LANÇAMENTO
+                    </div>
+                  </div>
+                  <div className="absolute top-4 right-4 bg-white/95 backdrop-blur-sm text-[#5e0d12] px-3 py-2 rounded-lg text-sm font-bold">
+                    A partir de R$ 380.000
+                  </div>
+                </div>
+                <div className="p-6">
+                  <h3 className="text-[#1b0e0f] text-xl font-bold mb-2">Residencial Aurora</h3>
+                  <p className="text-[#955055] text-sm mb-4">
+                    Apartamentos de 2 e 3 quartos com varanda gourmet, área de lazer completa e localização privilegiada.
+                  </p>
+
+                  {/* Timeline e informações */}
+                  <div className="space-y-3 mb-6">
+                    <div className="flex items-center gap-3 text-sm">
+                      <FaClock className="w-4 h-4 text-[#5e0d12]" />
+                      <span className="text-[#955055]">Entrega: <strong className="text-[#1b0e0f]">Dezembro 2026</strong></span>
+                    </div>
+                    <div className="flex items-center gap-3 text-sm">
+                      <FaMapMarkedAlt className="w-4 h-4 text-[#5e0d12]" />
+                      <span className="text-[#955055]">Bairro Jardins - SP</span>
+                    </div>
+                    <div className="flex items-center gap-3 text-sm">
+                      <FaPercentage className="w-4 h-4 text-[#5e0d12]" />
+                      <span className="text-[#955055]">Financiamento: <strong className="text-[#1b0e0f]">Até 100% FGTS</strong></span>
+                    </div>
+                  </div>
+
+                  <div className="flex gap-3">
+                    <Button className="flex-1 bg-[#5e0d12] hover:bg-[#4a0a0f] text-white h-10 text-sm font-semibold">
+                      Ver Plantas
+                    </Button>
+                    <Button variant="outline" className="flex-1 border-[#5e0d12] text-[#5e0d12] hover:bg-[#5e0d12] hover:text-white h-10 text-sm font-medium">
+                      Agendar Visita
+                    </Button>
+                  </div>
+                </div>
+              </div>
+
+              {/* Lançamento 2 */}
+              <div className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-100">
+                <div className="relative overflow-hidden">
+                  <div
+                    className="w-full h-64 bg-cover bg-center transition-transform duration-300 group-hover:scale-105"
+                    style={{
+                      backgroundImage: 'url("https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80")'
+                    }}
+                  ></div>
+                  <div className="absolute top-4 left-4">
+                    <div className="bg-[#5e0d12] text-white px-3 py-1 rounded-full text-xs font-semibold mb-2">
+                      PRÉ-LANÇAMENTO
+                    </div>
+                  </div>
+                  <div className="absolute top-4 right-4 bg-white/95 backdrop-blur-sm text-[#5e0d12] px-3 py-2 rounded-lg text-sm font-bold">
+                    A partir de R$ 850.000
+                  </div>
+                </div>
+                <div className="p-6">
+                  <h3 className="text-[#1b0e0f] text-xl font-bold mb-2">Vila Harmonia</h3>
+                  <p className="text-[#955055] text-sm mb-4">
+                    Casas em condomínio fechado com 3 e 4 quartos, área gourmet privativa e sistema de energia solar.
+                  </p>
+
+                  {/* Timeline e informações */}
+                  <div className="space-y-3 mb-6">
+                    <div className="flex items-center gap-3 text-sm">
+                      <FaClock className="w-4 h-4 text-[#5e0d12]" />
+                      <span className="text-[#955055]">Entrega: <strong className="text-[#1b0e0f]">Junho 2027</strong></span>
+                    </div>
+                    <div className="flex items-center gap-3 text-sm">
+                      <FaMapMarkedAlt className="w-4 h-4 text-[#5e0d12]" />
+                      <span className="text-[#955055]">Alphaville - SP</span>
+                    </div>
+                    <div className="flex items-center gap-3 text-sm">
+                      <FaPercentage className="w-4 h-4 text-[#5e0d12]" />
+                      <span className="text-[#955055]">Entrada: <strong className="text-[#1b0e0f]">Apenas 10%</strong></span>
+                    </div>
+                  </div>
+
+                  <div className="flex gap-3">
+                    <Button className="flex-1 bg-[#5e0d12] hover:bg-[#4a0a0f] text-white h-10 text-sm font-semibold">
+                      Ver Plantas
+                    </Button>
+                    <Button variant="outline" className="flex-1 border-[#5e0d12] text-[#5e0d12] hover:bg-[#5e0d12] hover:text-white h-10 text-sm font-medium">
+                      Agendar Visita
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Seção de vantagens */}
+            <div className="bg-white rounded-2xl p-8 md:p-12 shadow-lg border border-gray-100">
+              <h3 className="text-[#1b0e0f] text-2xl font-bold text-center mb-8">
+                Vantagens de Comprar na Planta
+              </h3>
+
+              <div className="grid md:grid-cols-4 gap-8">
+                <div className="text-center">
+                  <div className="w-16 h-16 bg-[#5e0d12]/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <FaPercentage className="w-8 h-8 text-[#5e0d12]" />
+                  </div>
+                  <h4 className="text-[#1b0e0f] font-bold mb-2">Preços Promocionais</h4>
+                  <p className="text-[#955055] text-sm">Descontos exclusivos e valores diferenciados para primeiros compradores</p>
+                </div>
+
+                <div className="text-center">
+                  <div className="w-16 h-16 bg-[#5e0d12]/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <FaClock className="w-8 h-8 text-[#5e0d12]" />
+                  </div>
+                  <h4 className="text-[#1b0e0f] font-bold mb-2">Facilidade de Pagamento</h4>
+                  <p className="text-[#955055] text-sm">Parcelas durante a obra e financiamento com as melhores condições</p>
+                </div>
+
+                <div className="text-center">
+                  <div className="w-16 h-16 bg-[#5e0d12]/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <FaMapMarkedAlt className="w-8 h-8 text-[#5e0d12]" />
+                  </div>
+                  <h4 className="text-[#1b0e0f] font-bold mb-2">Localização Privilegiada</h4>
+                  <p className="text-[#955055] text-sm">Empreendimentos em regiões valorizadas com potencial de crescimento</p>
+                </div>
+
+                <div className="text-center">
+                  <div className="w-16 h-16 bg-[#5e0d12]/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <FaBuilding className="w-8 h-8 text-[#5e0d12]" />
+                  </div>
+                  <h4 className="text-[#1b0e0f] font-bold mb-2">Imóvel Novo</h4>
+                  <p className="text-[#955055] text-sm">Tecnologia moderna, acabamentos novos e garantia da construtora</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Call to action final */}
+            <div className="text-center mt-16">
+              <h3 className="text-[#1b0e0f] text-2xl font-bold mb-4">
+                Quer saber mais sobre nossos lançamentos?
+              </h3>
+              <p className="text-[#955055] mb-8 max-w-2xl mx-auto">
+                Cadastre-se e receba em primeira mão informações sobre novos empreendimentos, condições especiais e oportunidades exclusivas.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto">
+                <Button className="flex-1 bg-[#5e0d12] hover:bg-[#4a0a0f] text-white h-12 text-base font-semibold">
+                  Cadastrar Interesse
+                </Button>
+                <Button variant="outline" className="flex-1 bg-white/30 border-[#5e0d12] text-[#5e0d12]  h-12 px-6 text-base font-medium min-w-[180px]">
+                  Falar com Consultor
                 </Button>
               </div>
             </div>
