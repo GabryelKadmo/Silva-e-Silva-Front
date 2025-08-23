@@ -16,7 +16,7 @@ export default function Footer() {
                             <h3 className="text-xl font-bold">Silva & Silva Imobiliária</h3>
                         </div>
                         <p className="text-gray-300 text-sm leading-relaxed mb-6 max-w-md">
-                            Há mais de uma década conectando pessoas aos seus lares ideais. Nossa missão é transformar sonhos em realidade através de um atendimento personalizado e expertise no mercado imobiliário.
+                            Com mais de 5 anos combinados em corretagem e tecnologia, nasceu a Silva & Silva: uma imobiliária digital que une experiência e inovação para transformar a forma de comprar e alugar imóveis!
                         </p>
                         {/* Redes Sociais */}
                         <div className="flex gap-4">
@@ -63,7 +63,8 @@ export default function Footer() {
                     <div className="flex flex-wrap gap-6 text-sm text-gray-400">
                         <a href="#" className="hover:text-white transition-colors">Política de Privacidade</a>
                         <a href="#" className="hover:text-white transition-colors">Termos de Uso</a>
-                        <a href="#" className="hover:text-white transition-colors">CRECI: 12345-J</a>
+                        <a href="#" className="hover:text-white transition-colors">Manuais</a>
+                        <a href="#" className="hover:text-white transition-colors">CRECI: 00000-J</a>
                     </div>
                 </div>
             </div>

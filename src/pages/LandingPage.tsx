@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
-import { FaBuilding, FaClock, FaEye, FaMapMarkedAlt, FaMicrochip, FaPercentage, FaUserFriends } from "react-icons/fa";
+import { Separator } from "@/components/ui/separator";
+import { FaBolt, FaBuilding, FaClock, FaMapMarkedAlt, FaMicrochip, FaPercentage, FaShieldAlt } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
 export default function LandingPage() {
@@ -19,7 +20,7 @@ export default function LandingPage() {
             <div
               className="flex min-h-[520px] lg:min-h-[580px] flex-col gap-6 bg-cover bg-no-repeat @[480px]:gap-8 rounded-lg @[480px]:rounded-lg items-start justify-end px-4 pb-10 @[480px]:px-10"
               style={{
-                backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.6) 100%), url("https://i.imgur.com/TEtjzR2.png")`,
+                backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 1) 100%), url("https://i.imgur.com/TEtjzR2.png")`,
                 backgroundPosition: 'center 20%'
               }}
             >
@@ -28,11 +29,11 @@ export default function LandingPage() {
                   Todo mundo conhece um Silva
                 </h1>
                 <h2 className="text-white text-sm font-normal leading-normal @[480px]:text-base @[480px]:font-normal @[480px]:leading-normal">
-                  Explore uma ampla gama de propriedades adaptadas às suas necessidades e preferências. Nossa equipe especializada está aqui para guiá-lo em cada etapa do processo.
+                  O nosso está a um clique de você. Compre, venda ou alugue imóveis em toda a região de Ribeirão Preto sem sair de casa. Somos o futuro do mercado imobiliário!
                 </h2>
               </div>
               <Button onClick={handleNavigateToImoveis} className="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 @[480px]:h-12 @[480px]:px-5 bg-[#5e0d12] hover:bg-[#4a0a0f] text-[#fbf8f9] leading-normal @[480px]:text-base @[480px]:font-bold @[480px]:leading-normal @[480px]:tracking-[0.015em]">
-                <span className="truncate">Explorar Propriedades</span>
+                <span className="truncate">Pesquisar imóveis</span>
               </Button>
             </div>
           </div>
@@ -157,10 +158,10 @@ export default function LandingPage() {
 
                 {/* Conteúdo Principal */}
                 <h2 className="mb-4 text-2xl font-bold text-white md:text-4xl">
-                  Tem um imóvel para anunciar?
+                  Vem de Silva & Silva Imobiliária
                 </h2>
                 <p className="mb-8 text-base text-white/90 md:text-lg">
-                  Transforme sua propriedade em oportunidade de negócio
+                  Anuncie seu imóvel conosco e transforme em oportunidade de negócio
                 </p>
 
                 {/* Benefícios Compactos */}
@@ -175,7 +176,7 @@ export default function LandingPage() {
                   </div>
                   <div className="flex items-center gap-2">
                     <span className="flex h-6 w-6 items-center justify-center rounded-full bg-white/20">✓</span>
-                    Suporte Completo
+                    Contratos online
                   </div>
                 </div>
 
@@ -262,8 +263,8 @@ export default function LandingPage() {
             </div>
 
             {/* Seção de valores/diferenciais */}
-            <div className="border-t border-[#e6d1d2] pt-6">
-              <h4 className="text-[#1b0e0f] text-xl font-bold text-center my-16">
+            <div className="pt-6">
+              <h4 className="text-[#1b0e0f] text-xl font-bold text-center mb-16">
                 Nossos Diferenciais
               </h4>
 
@@ -271,11 +272,11 @@ export default function LandingPage() {
                 {/* Diferencial 1 */}
                 <div className="text-center group">
                   <div className="w-16 h-16 bg-[#5e0d12]/10 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-[#5e0d12]/20 transition-colors duration-300">
-                    <FaUserFriends className="w-8 h-8 text-[#5e0d12]" />
+                    <FaBolt className="w-8 h-8 text-[#5e0d12]" />
                   </div>
-                  <h5 className="text-[#1b0e0f] font-bold mb-2">Consultoria Especializada</h5>
+                  <h5 className="text-[#1b0e0f] font-bold mb-2">Resposta 12x mais rápido do que a média</h5>
                   <p className="text-[#955055] text-sm leading-relaxed">
-                    Suporte completo para quem deseja alugar, comprar ou financiar, com orientação feita por especialistas em cada etapa.
+                    Enquanto 41% dos atendimentos em imobiliárias levam até 6 horas para serem respondidos, a Silva & Silva garante retorno em até 30 minutos, 12x mais rápido que a média do mercado.
                   </p>
                 </div>
 
@@ -286,21 +287,23 @@ export default function LandingPage() {
                   </div>
                   <h5 className="text-[#1b0e0f] font-bold mb-2">Plataforma 100% Digital</h5>
                   <p className="text-[#955055] text-sm leading-relaxed">
-                    Pesquise, agende visitas virtuais, envie propostas e acompanhe seu financiamento sem burocracia, tudo online.
+                    Pesquise, agende visitas, envie propostas e acompanhe venda, compra e locação tudo online. Nunca mais perca tempo procurando escritórios ou correndo atrás de imobiliárias!
                   </p>
                 </div>
 
                 {/* Diferencial 3 */}
                 <div className="text-center group">
                   <div className="w-16 h-16 bg-[#5e0d12]/10 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-[#5e0d12]/20 transition-colors duration-300">
-                    <FaEye className="w-8 h-8 text-[#5e0d12]" />
+                    <FaShieldAlt className="w-8 h-8 text-[#5e0d12]" />
                   </div>
-                  <h5 className="text-[#1b0e0f] font-bold mb-2">Negócios Transparentes</h5>
+                  <h5 className="text-[#1b0e0f] font-bold mb-2">Alugue sem fiador</h5>
                   <p className="text-[#955055] text-sm leading-relaxed">
-                    Informações claras sobre valores, contratos e condições de financiamento, garantindo segurança em cada decisão.
+                    Alugue com seguro fiança, diminua processos e aumente a segurança contratual, autenticando tudo online. Mais agilidade e tranquilidade para inquilinos e proprietários.
                   </p>
                 </div>
               </div>
+
+              <Separator className="bg-[#e6d1d2] mt-16" />
             </div>
           </div>
         </div>
@@ -311,10 +314,10 @@ export default function LandingPage() {
             {/* Cabeçalho da seção */}
             <div className="text-center mb-16">
               <h2 className="text-[#1b0e0f] text-3xl md:text-4xl font-bold leading-tight mb-4">
-                Empreendimentos <span className="text-[#5e0d12]">na Planta</span>
+                Silva & Silva é  <span className="text-[#5e0d12]">MCMV</span>
               </h2>
               <p className="text-[#955055] text-lg max-w-2xl mx-auto">
-                Oportunidades únicas com preços promocionais e condições especiais para quem investe no futuro
+                Escolha online, acompanhe cada detalhe da obra e só saia de casa para receber as chaves.
               </p>
             </div>
 
@@ -435,7 +438,7 @@ export default function LandingPage() {
                     <FaPercentage className="w-8 h-8 text-[#5e0d12]" />
                   </div>
                   <h4 className="text-[#1b0e0f] font-bold mb-2">Preços Promocionais</h4>
-                  <p className="text-[#955055] text-sm">Descontos exclusivos e valores diferenciados para primeiros compradores</p>
+                  <p className="text-[#955055] text-sm">Descontos de até R$ 65.000 para o seu primeiro imóvel</p>
                 </div>
 
                 <div className="text-center">
@@ -465,19 +468,18 @@ export default function LandingPage() {
             </div>
 
             {/* Call to action final */}
-            <div className="text-center mt-16">
-              <h3 className="text-[#1b0e0f] text-2xl font-bold mb-4">
-                Quer saber mais sobre nossos lançamentos?
-              </h3>
-              <p className="text-[#955055] mb-8 max-w-2xl mx-auto">
-                Cadastre-se e receba em primeira mão informações sobre novos empreendimentos, condições especiais e oportunidades exclusivas.
+            <div className="text-center mt-28">
+              <div className="flex items-center justify-center gap-3 mb-4">
+                <h3 className="text-[#1b0e0f] text-3xl font-bold">
+                  Não perca seu imóvel dos sonhos!
+                </h3>
+              </div>
+              <p className="text-[#955055] mb-8 max-w-3xl mx-auto text-lg">
+                <strong className="text-[#5e0d12]">Seja o primeiro a saber!</strong> Registre-se agora e receba em primeira mão os melhores lançamentos, promoções exclusivas e oportunidades únicas no mercado imobiliário. <span className="text-[#1b0e0f] font-semibold">É gratuito e sem compromisso!</span>
               </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto">
-                <Button className="flex-1 bg-[#5e0d12] hover:bg-[#4a0a0f] text-white h-12 text-base font-semibold">
-                  Cadastrar Interesse
-                </Button>
-                <Button variant="outline" className="flex-1 bg-red-50 border-gray-200 text-[#5e0d12] hover:text-[#5e0d12] h-12 px-6 text-base font-medium min-w-[180px]">
-                  Falar com Consultor
+              <div className="flex justify-center">
+                <Button className="bg-gradient-to-r from-[#5e0d12] to-[#7a1119] hover:from-[#4a0a0f] hover:to-[#5e0d12] text-white h-14 px-12 text-lg font-bold rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 flex items-center gap-3">
+                  Registre-se!
                 </Button>
               </div>
             </div>
