@@ -2,6 +2,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Header from "./components/custom/Header";
 import Footer from "./components/custom/Footer";
 import ScrollToTop from "./components/ScrollToTop";
+import BackToTop from "./components/custom/BackToTop";
 import LandingPage from "./pages/LandingPage";
 import NotFound from "./pages/NotFound";
 import ImoveisPage from "./pages/ImoveisPage";
@@ -21,6 +22,7 @@ function App() {
         </main>
         <Footer />
       </div>
+      <BackToTop />
     </BrowserRouter>
   );
 }

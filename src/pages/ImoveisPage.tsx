@@ -265,7 +265,7 @@ export default function ImoveisPage() {
                             <div className="hidden lg:flex bg-white rounded-lg border border-gray-200 p-1">
                                 <button
                                     onClick={() => setViewMode('list')}
-                                    className={`flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-colors ${viewMode === 'list'
+                                    className={`cursor-pointer flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-colors ${viewMode === 'list'
                                         ? 'bg-[#5e0d12] text-white'
                                         : 'text-[#955055] hover:bg-gray-100'
                                         }`}
@@ -277,7 +277,7 @@ export default function ImoveisPage() {
                                 </button>
                                 <button
                                     onClick={() => setViewMode('hybrid')}
-                                    className={`flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-colors ${viewMode === 'hybrid'
+                                    className={`cursor-pointer flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-colors ${viewMode === 'hybrid'
                                         ? 'bg-[#5e0d12] text-white'
                                         : 'text-[#955055] hover:bg-gray-100'
                                         }`}
