@@ -159,20 +159,22 @@ export default function ImovelDetalhesPage() {
                                 <div className="absolute inset-0 -m-4" onClick={() => setGaleriaAberta(false)}></div>
                             </div>
 
-                            {/* Desktop/Tablet - Formato original */}
+                            {/* Desktop/Tablet - Formato original com aspect ratio consistente */}
                             <div className="relative w-full max-w-4xl max-h-[60vh] hidden sm:flex items-center justify-center">
-                                <img
-                                    src={mockImages[imagemPrincipalIndex]}
-                                    alt={`Imagem ${imagemPrincipalIndex + 1} do imóvel`}
-                                    className="w-full h-full object-cover rounded-lg shadow-2xl transition-opacity duration-300"
-                                    style={{
-                                        imageRendering: '-webkit-optimize-contrast',
-                                        filter: 'contrast(1.05) saturate(1.1)',
-                                    }}
-                                    onClick={(e) => e.stopPropagation()}
-                                />
-                                {/* Indicador de loading/transição sutil */}
-                                <div className="absolute inset-0 bg-white/5 rounded-lg opacity-0 transition-opacity duration-200 pointer-events-none" />
+                                <div className="relative w-full h-full flex items-center justify-center">
+                                    <img
+                                        src={mockImages[imagemPrincipalIndex]}
+                                        alt={`Imagem ${imagemPrincipalIndex + 1} do imóvel`}
+                                        className="max-w-full max-h-full object-contain rounded-lg shadow-2xl transition-opacity duration-300"
+                                        style={{
+                                            imageRendering: '-webkit-optimize-contrast',
+                                            filter: 'contrast(1.05) saturate(1.1)',
+                                        }}
+                                        onClick={(e) => e.stopPropagation()}
+                                    />
+                                    {/* Indicador de loading/transição sutil */}
+                                    <div className="absolute inset-0 bg-white/5 rounded-lg opacity-0 transition-opacity duration-200 pointer-events-none" />
+                                </div>
 
                                 {/* Área clicável para fechar - Desktop */}
                                 <div className="absolute inset-0 -m-8" onClick={() => setGaleriaAberta(false)}></div>
