@@ -52,7 +52,7 @@ export const mockImoveis: Imovel[] = [
     area: 111,
     preco: 550000,
     imagem:
-      "https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=400",
+      "https://img.olx.com.br/images/27/276511192185512.webp",
     coordenadas: [-21.19, -47.83],
     bairro: "Sumarezinho",
     tipo: "apartamento",

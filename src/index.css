@@ -138,6 +138,14 @@
   .no-smooth-scroll * {
     scroll-behavior: auto !important;
   }
+
+  /* Melhoria na qualidade das imagens */
+  img {
+    max-width: 100%;
+    height: auto;
+    image-rendering: auto;
+    image-rendering: -webkit-optimize-contrast;
+  }
 }
 
 /* Scrollbar customizada clara */

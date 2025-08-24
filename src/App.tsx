@@ -6,6 +6,7 @@ import BackToTop from "./components/custom/BackToTop";
 import LandingPage from "./pages/LandingPage";
 import NotFound from "./pages/NotFound";
 import ImoveisPage from "./pages/ImoveisPage";
+import ImovelDetalhesPage from "./pages/ImovelDetalhesPage";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Routes>
             <Route path="/" element={<LandingPage />} />
             <Route path="/imoveis" element={<ImoveisPage />} />
+            <Route path="/imovel/:id" element={<ImovelDetalhesPage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </main>

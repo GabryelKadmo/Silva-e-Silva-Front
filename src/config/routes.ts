@@ -1,6 +1,8 @@
 // Configuração das rotas da aplicação
 export const routes = {
   home: "/",
+  imoveis: "/imoveis",
+  imovelDetalhes: "/imovel/:id",
   notFound: "*",
 } as const;
 

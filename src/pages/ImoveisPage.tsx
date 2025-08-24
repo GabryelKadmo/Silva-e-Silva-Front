@@ -1,5 +1,6 @@
 
 import { useState, useEffect, useRef } from 'react'
+import { Link } from 'react-router-dom'
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
 import { LatLngBounds } from 'leaflet'
 import type { LatLngTuple } from 'leaflet'
@@ -362,8 +363,9 @@ export default function ImoveisPage() {
                             <div className="flex-1">
                                 <div className="grid grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-2 lg:gap-6 px-1 lg:px-2 py-4">
                                     {imoveisFiltrados.map((imovel) => (
-                                        <div
+                                        <Link
                                             key={imovel.id}
+                                            to={`/imovel/${imovel.id}`}
                                             className="flex flex-col cursor-pointer transition-shadow duration-150 ease-out rounded-xl overflow-hidden bg-white border border-gray-100 shadow-sm hover:shadow-lg"
                                             onMouseEnter={() => setHoveredProperty(imovel.id)}
                                             onMouseLeave={() => setHoveredProperty(null)}
@@ -389,7 +391,7 @@ export default function ImoveisPage() {
                                                     R$ {imovel.preco.toLocaleString('pt-BR')}
                                                 </p>
                                             </div>
-                                        </div>
+                                        </Link>
                                     ))}
                                 </div>
 
@@ -422,8 +424,9 @@ export default function ImoveisPage() {
                             <div className="flex-1 overflow-y-auto px-3">
                                 <div className="grid grid-cols-2 xl:grid-cols-3 gap-2 xl:gap-4 py-2">
                                     {imoveisFiltrados.map((imovel) => (
-                                        <div
+                                        <Link
                                             key={imovel.id}
+                                            to={`/imovel/${imovel.id}`}
                                             className={`flex flex-col gap-2 xl:gap-3 pb-2 xl:pb-3 cursor-pointer transition-shadow duration-150 ease-out rounded-xl overflow-hidden bg-white border ${hoveredProperty === imovel.id
                                                 ? 'shadow-lg border-gray-200'
                                                 : 'shadow-sm border-gray-100 hover:shadow-md'
@@ -452,7 +455,7 @@ export default function ImoveisPage() {
                                                     R$ {imovel.preco.toLocaleString('pt-BR')}
                                                 </p>
                                             </div>
-                                        </div>
+                                        </Link>
                                     ))}
                                 </div>
                             </div>
