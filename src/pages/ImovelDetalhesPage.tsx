@@ -70,7 +70,7 @@ export default function ImovelDetalhesPage() {
                             {imovel.endereco}
                         </h1>
                         <div className="flex items-center text-gray-600">
-                            <MapPin className="w-4 h-4 mr-1" />
+                            {/* <MapPin className="w-4 h-4 mr-1" /> */}
                             <span> {formatPrice(imovel.preco)}</span>
                         </div>
                     </div>
