@@ -148,7 +148,7 @@ export default function LandingPage() {
             <div
               className="absolute inset-0 bg-cover bg-center bg-no-repeat"
               style={{
-                backgroundImage: 'url("https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80")'
+                backgroundImage: 'url("https://i.imgur.com/HTnJTMA.png/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80")'
               }}
             ></div>
             {/* Degradê sobreposto */}
