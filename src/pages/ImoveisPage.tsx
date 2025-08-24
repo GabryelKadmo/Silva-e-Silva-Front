@@ -6,6 +6,34 @@ import type { LatLngTuple } from 'leaflet'
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 import { mockImoveis, RIBEIRAO_PRETO_CONFIG, BAIRROS_COORDENADAS } from '../data/mockImoveis'
+import FiltroLateral from '../components/custom/FiltroLateral'
+
+// Interface para filtros
+interface Filtros {
+    tipoImovel: string[]
+    bairros: string[]
+    precoMin: number | null
+    precoMax: number | null
+    quartos: number | null
+    banheiros: number | null
+    area: { min: number | null; max: number | null }
+}
+
+// Dados para os filtros
+const TIPOS_IMOVEL = [
+    { value: 'casa', label: 'Casa' },
+    { value: 'apartamento', label: 'Apartamento' },
+    { value: 'sobrado', label: 'Sobrado' },
+    { value: 'kitnet', label: 'Kitnet' }
+]
+const BAIRROS_DISPONIVEIS = Array.from(new Set(mockImoveis.map(imovel => imovel.bairro).filter(Boolean))).sort() as string[]
+const FAIXAS_PRECO: { label: string; max?: number; min?: number }[] = [
+    { label: 'Até R$ 400.000', max: 400000 },
+    { label: 'R$ 400.000 - R$ 600.000', min: 400000, max: 600000 },
+    { label: 'R$ 600.000 - R$ 800.000', min: 600000, max: 800000 },
+    { label: 'R$ 800.000 - R$ 1.000.000', min: 800000, max: 1000000 },
+    { label: 'Acima de R$ 1.000.000', min: 1000000 },
+]
 
 // Estilos customizados para o popup melhorado
 const customStyles = `
@@ -69,17 +97,100 @@ const createNumberedIcon = (count: number) => {
 
 export default function ImoveisPage() {
     const [searchTerm, setSearchTerm] = useState('')
+    const [viewMode, setViewMode] = useState<'list' | 'hybrid'>('list')
+    const [hoveredProperty, setHoveredProperty] = useState<number | null>(null)
     const mapRef = useRef<L.Map | null>(null)
 
-    // Agrupar imóveis por bairro para proteção de privacidade
-    const imoveisPorBairro = mockImoveis.reduce((acc, imovel) => {
+    // Estado dos filtros avançados
+    const [filtros, setFiltros] = useState<Filtros>({
+        tipoImovel: [],
+        bairros: [],
+        precoMin: null,
+        precoMax: null,
+        quartos: null,
+        banheiros: null,
+        area: { min: null, max: null }
+    })
+
+    // Função para aplicar filtros
+    const imoveisFiltrados = mockImoveis.filter(imovel => {
+        // Filtro por termo de busca
+        if (searchTerm && !imovel.endereco.toLowerCase().includes(searchTerm.toLowerCase()) &&
+            !imovel.bairro?.toLowerCase().includes(searchTerm.toLowerCase())) {
+            return false
+        }
+
+        // Filtro por tipo de imóvel
+        if (filtros.tipoImovel.length > 0 && !filtros.tipoImovel.includes(imovel.tipo || '')) {
+            return false
+        }
+
+        // Filtro por bairro
+        if (filtros.bairros.length > 0 && !filtros.bairros.includes(imovel.bairro || '')) {
+            return false
+        }
+
+        // Filtro por preço
+        if (filtros.precoMin !== null && imovel.preco < filtros.precoMin) {
+            return false
+        }
+        if (filtros.precoMax !== null && imovel.preco > filtros.precoMax) {
+            return false
+        }
+
+        // Filtro por quartos
+        if (filtros.quartos !== null && imovel.quartos !== filtros.quartos) {
+            return false
+        }
+
+        // Filtro por banheiros
+        if (filtros.banheiros !== null && imovel.banheiros !== filtros.banheiros) {
+            return false
+        }
+
+        // Filtro por área
+        if (filtros.area.min !== null && imovel.area < filtros.area.min) {
+            return false
+        }
+        if (filtros.area.max !== null && imovel.area > filtros.area.max) {
+            return false
+        }
+
+        return true
+    })
+
+    // Função para limpar filtros
+    const limparFiltros = () => {
+        setFiltros({
+            tipoImovel: [],
+            bairros: [],
+            precoMin: null,
+            precoMax: null,
+            quartos: null,
+            banheiros: null,
+            area: { min: null, max: null }
+        })
+        setSearchTerm('')
+    }
+
+    // Função para aplicar faixa de preço predefinida
+    const aplicarFaixaPreco = (faixa: { label: string; max?: number; min?: number }) => {
+        setFiltros(prev => ({
+            ...prev,
+            precoMin: faixa.min || null,
+            precoMax: faixa.max || null
+        }))
+    }
+
+    // Agrupar imóveis filtrados por bairro para proteção de privacidade
+    const imoveisPorBairro = imoveisFiltrados.reduce((acc, imovel) => {
         const bairro = imovel.bairro || 'Outros'
         if (!acc[bairro]) {
             acc[bairro] = []
         }
         acc[bairro].push(imovel)
         return acc
-    }, {} as Record<string, typeof mockImoveis>)
+    }, {} as Record<string, typeof imoveisFiltrados>)
 
     // Inserir estilos customizados do popup
     useEffect(() => {
@@ -91,6 +202,25 @@ export default function ImoveisPage() {
             if (document.head.contains(styleElement)) {
                 document.head.removeChild(styleElement)
             }
+        }
+    }, [])
+
+    // Forçar modo lista no mobile
+    useEffect(() => {
+        const handleResize = () => {
+            if (window.innerWidth < 1024) { // lg breakpoint
+                setViewMode('list')
+            }
+        }
+
+        // Verificar no mount
+        handleResize()
+
+        // Adicionar listener para resize
+        window.addEventListener('resize', handleResize)
+
+        return () => {
+            window.removeEventListener('resize', handleResize)
         }
     }, [])
 
@@ -106,34 +236,229 @@ export default function ImoveisPage() {
     return (
         <div className="min-h-screen bg-[#fbf8f9]" style={{ fontFamily: '"Plus Jakarta Sans", "Noto Sans", sans-serif' }}>
             {/* Container principal */}
-            <div className="px-4 sm:px-10 lg:px-40 py-3 sm:py-5">
-                <div className="max-w-7xl mx-auto">
+            <div className="px-2 sm:px-10 lg:px-40 py-3 sm:py-5">
+                <div className="max-w-8xl mx-auto">
 
-                    {/* Campo de busca fora do mapa */}
-                    <div className="mb-3">
-                        <label className="flex flex-col min-w-40 h-10 sm:h-12">
-                            <div className="flex w-full flex-1 items-stretch rounded-lg h-full shadow-sm">
-                                <div className="text-[#955055] flex border-none bg-white items-center justify-center pl-3 sm:pl-4 rounded-l-lg border-r-0">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="currentColor" viewBox="0 0 256 256" className="sm:w-6 sm:h-6">
-                                        <path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"></path>
+                    {/* Barra de controles - busca, filtros e modo de visualização */}
+                    <div className="mb-4 space-y-3">
+                        {/* Campo de busca e botões de visualização */}
+                        <div className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center">
+                            <div className="flex-1">
+                                <label className="flex flex-col min-w-40 h-10 sm:h-12">
+                                    <div className="flex w-full flex-1 items-stretch rounded-lg h-full shadow-sm">
+                                        <div className="text-[#955055] flex border-none bg-white items-center justify-center pl-3 sm:pl-4 rounded-l-lg border-r-0">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="currentColor" viewBox="0 0 256 256" className="sm:w-6 sm:h-6">
+                                                <path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"></path>
+                                            </svg>
+                                        </div>
+                                        <input
+                                            placeholder="Buscar por bairro ou endereço"
+                                            className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#1b0e0f] focus:outline-0 focus:ring-0 border-none bg-white focus:border-none h-full placeholder:text-[#955055] px-2 sm:px-4 rounded-l-none border-l-0 pl-2 text-sm sm:text-base font-normal leading-normal"
+                                            value={searchTerm}
+                                            onChange={(e) => setSearchTerm(e.target.value)}
+                                        />
+                                    </div>
+                                </label>
+                            </div>
+
+                            {/* Botões de modo de visualização - apenas desktop */}
+                            <div className="hidden lg:flex bg-white rounded-lg border border-gray-200 p-1">
+                                <button
+                                    onClick={() => setViewMode('list')}
+                                    className={`flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-colors ${viewMode === 'list'
+                                        ? 'bg-[#5e0d12] text-white'
+                                        : 'text-[#955055] hover:bg-gray-100'
+                                        }`}
+                                >
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 256 256">
+                                        <path d="M32,64a8,8,0,0,1,8-8H216a8,8,0,0,1,0,16H40A8,8,0,0,1,32,64Zm8,72H216a8,8,0,0,0,0-16H40a8,8,0,0,0,0,16Zm176,48H40a8,8,0,0,0,0,16H216a8,8,0,0,0,0-16Z"></path>
                                     </svg>
-                                </div>
-                                <input
-                                    placeholder="Buscar por bairro ou endereço"
-                                    className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#1b0e0f] focus:outline-0 focus:ring-0 border-none bg-white focus:border-none h-full placeholder:text-[#955055] px-2 sm:px-4 rounded-l-none border-l-0 pl-2 text-sm sm:text-base font-normal leading-normal"
-                                    value={searchTerm}
-                                    onChange={(e) => setSearchTerm(e.target.value)}
+                                    Lista
+                                </button>
+                                <button
+                                    onClick={() => setViewMode('hybrid')}
+                                    className={`flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-colors ${viewMode === 'hybrid'
+                                        ? 'bg-[#5e0d12] text-white'
+                                        : 'text-[#955055] hover:bg-gray-100'
+                                        }`}
+                                >
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 256 256">
+                                        <path d="M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40ZM104,200H40V56h64Zm112,0H120V56h96Z"></path>
+                                    </svg>
+                                    Híbrido
+                                </button>
+                            </div>
+                        </div>
+
+                        {/* Filtros */}
+                        <div className="flex gap-2 sm:gap-3 flex-wrap items-center">
+                            {/* Filtro mobile - exibido apenas no mobile */}
+                            <div className="lg:hidden">
+                                <FiltroLateral
+                                    filtros={filtros}
+                                    setFiltros={setFiltros}
+                                    limparFiltros={limparFiltros}
+                                    resultadosCount={imoveisFiltrados.length}
+                                    tiposImovel={TIPOS_IMOVEL}
+                                    bairrosDisponiveis={BAIRROS_DISPONIVEIS}
+                                    faixasPreco={FAIXAS_PRECO}
+                                    aplicarFaixaPreco={aplicarFaixaPreco}
                                 />
                             </div>
-                        </label>
+
+                            {/* Filtros rápidos */}
+                            <button className="flex h-7 sm:h-8 shrink-0 items-center justify-center gap-x-1 sm:gap-x-2 rounded-lg bg-[#f3e8e9] pl-2 sm:pl-4 pr-1 sm:pr-2 hover:bg-[#e8d5d7] transition-colors whitespace-nowrap">
+                                <p className="text-[#1b0e0f] text-xs sm:text-sm font-medium leading-normal">Tipo</p>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" fill="currentColor" viewBox="0 0 256 256" className="sm:w-5 sm:h-5">
+                                    <path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"></path>
+                                </svg>
+                            </button>
+                            <button className="flex h-7 sm:h-8 shrink-0 items-center justify-center gap-x-1 sm:gap-x-2 rounded-lg bg-[#f3e8e9] pl-2 sm:pl-4 pr-1 sm:pr-2 hover:bg-[#e8d5d7] transition-colors whitespace-nowrap">
+                                <p className="text-[#1b0e0f] text-xs sm:text-sm font-medium leading-normal">Local</p>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" fill="currentColor" viewBox="0 0 256 256" className="sm:w-5 sm:h-5">
+                                    <path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"></path>
+                                </svg>
+                            </button>
+                            <button className="flex h-7 sm:h-8 shrink-0 items-center justify-center gap-x-1 sm:gap-x-2 rounded-lg bg-[#f3e8e9] pl-2 sm:pl-4 pr-1 sm:pr-2 hover:bg-[#e8d5d7] transition-colors whitespace-nowrap">
+                                <p className="text-[#1b0e0f] text-xs sm:text-sm font-medium leading-normal">Preço</p>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" fill="currentColor" viewBox="0 0 256 256" className="sm:w-5 sm:h-5">
+                                    <path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"></path>
+                                </svg>
+                            </button>
+                            <button className="flex h-7 sm:h-8 shrink-0 items-center justify-center gap-x-1 sm:gap-x-2 rounded-lg bg-[#f3e8e9] pl-2 sm:pl-4 pr-1 sm:pr-2 hover:bg-[#e8d5d7] transition-colors whitespace-nowrap">
+                                <p className="text-[#1b0e0f] text-xs sm:text-sm font-medium leading-normal">Quartos</p>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" fill="currentColor" viewBox="0 0 256 256" className="sm:w-5 sm:h-5">
+                                    <path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"></path>
+                                </svg>
+                            </button>
+                            <button className="flex h-7 sm:h-8 shrink-0 items-center justify-center gap-x-1 sm:gap-x-2 rounded-lg bg-[#f3e8e9] pl-2 sm:pl-4 pr-1 sm:pr-2 hover:bg-[#e8d5d7] transition-colors whitespace-nowrap">
+                                <p className="text-[#1b0e0f] text-xs sm:text-sm font-medium leading-normal">Banheiros</p>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" fill="currentColor" viewBox="0 0 256 256" className="sm:w-5 sm:h-5">
+                                    <path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"></path>
+                                </svg>
+                            </button>
+                        </div>
                     </div>
 
-                    {/* Seção do Mapa */}
-                    <div className="flex flex-col h-full flex-1">
-                        <div className="flex flex-1 flex-col py-2 sm:py-3">
-                            <div className="relative min-h-[300px] sm:min-h-[400px] flex-1 flex flex-col justify-between px-0 pb-3 sm:pb-4 pt-3 sm:pt-5 rounded-lg overflow-hidden">
+                    {/* Conteúdo principal - baseado no modo de visualização */}
+                    {viewMode === 'list' && (
+                        /* Visualização apenas em lista com filtro lateral no desktop */
+                        <div className="flex gap-6">
+                            {/* Filtros laterais usando o novo componente - apenas desktop */}
+                            <div className="hidden lg:block">
+                                <FiltroLateral
+                                    filtros={filtros}
+                                    setFiltros={setFiltros}
+                                    limparFiltros={limparFiltros}
+                                    resultadosCount={imoveisFiltrados.length}
+                                    tiposImovel={TIPOS_IMOVEL}
+                                    bairrosDisponiveis={BAIRROS_DISPONIVEIS}
+                                    faixasPreco={FAIXAS_PRECO}
+                                    aplicarFaixaPreco={aplicarFaixaPreco}
+                                />
+                            </div>
 
-                                {/* Mapa do Leaflet */}
+                            {/* Lista de imóveis */}
+                            <div className="flex-1">
+                                <div className="grid grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-2 lg:gap-6 px-1 lg:px-2 py-4">
+                                    {imoveisFiltrados.map((imovel) => (
+                                        <div
+                                            key={imovel.id}
+                                            className="flex flex-col cursor-pointer transition-shadow duration-150 ease-out rounded-xl overflow-hidden bg-white border border-gray-100 shadow-sm hover:shadow-lg"
+                                            onMouseEnter={() => setHoveredProperty(imovel.id)}
+                                            onMouseLeave={() => setHoveredProperty(null)}
+                                        >
+                                            <div
+                                                className="w-full bg-center bg-no-repeat aspect-video bg-cover"
+                                                style={{ backgroundImage: `url("${imovel.imagem}")` }}
+                                            />
+                                            <div className="p-2 lg:p-4">
+                                                <p className="text-[#1b0e0f] text-sm lg:text-base font-semibold leading-tight mb-2 lg:mb-3 line-clamp-2">{imovel.endereco}</p>
+                                                <div className="flex flex-wrap gap-1 lg:gap-2 mb-2 lg:mb-3">
+                                                    <span className="text-[10px] lg:text-xs text-[#5e0d12] bg-[#f3e8e9] px-2 lg:px-3 py-1 lg:py-1.5 rounded-full font-medium">
+                                                        {imovel.quartos} quartos
+                                                    </span>
+                                                    <span className="text-[10px] lg:text-xs text-[#5e0d12] bg-[#f3e8e9] px-2 lg:px-3 py-1 lg:py-1.5 rounded-full font-medium">
+                                                        {imovel.banheiros} banheiros
+                                                    </span>
+                                                    <span className="text-[10px] lg:text-xs text-[#5e0d12] bg-[#f3e8e9] px-2 lg:px-3 py-1 lg:py-1.5 rounded-full font-medium">
+                                                        {imovel.area} m²
+                                                    </span>
+                                                </div>
+                                                <p className="text-[#5e0d12] text-lg lg:text-xl font-bold">
+                                                    R$ {imovel.preco.toLocaleString('pt-BR')}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+
+                                {/* Mensagem quando não há resultados */}
+                                {imoveisFiltrados.length === 0 && (
+                                    <div className="text-center py-12">
+                                        <div className="mx-auto w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mb-4">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 256 256" className="text-gray-400">
+                                                <path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"></path>
+                                            </svg>
+                                        </div>
+                                        <h3 className="text-lg font-semibold text-[#1b0e0f] mb-2">Nenhum imóvel encontrado</h3>
+                                        <p className="text-[#955055] mb-4">Tente ajustar os filtros para encontrar mais opções</p>
+                                        <button
+                                            onClick={limparFiltros}
+                                            className="px-6 py-2 bg-[#5e0d12] text-white rounded-lg font-medium hover:bg-[#7a1118] transition-colors"
+                                        >
+                                            Limpar filtros
+                                        </button>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                    )}
+
+                    {viewMode === 'hybrid' && (
+                        /* Visualização híbrida - mapa e lista lado a lado */
+                        <div className="flex flex-col lg:flex-row gap-6 h-[calc(100vh-300px)] min-h-[500px]">
+                            {/* Lista de imóveis */}
+                            <div className="flex-1 overflow-y-auto px-3">
+                                <div className="grid grid-cols-2 xl:grid-cols-3 gap-2 xl:gap-4 py-2">
+                                    {imoveisFiltrados.map((imovel) => (
+                                        <div
+                                            key={imovel.id}
+                                            className={`flex flex-col gap-2 xl:gap-3 pb-2 xl:pb-3 cursor-pointer transition-shadow duration-150 ease-out rounded-xl overflow-hidden bg-white border ${hoveredProperty === imovel.id
+                                                ? 'shadow-lg border-gray-200'
+                                                : 'shadow-sm border-gray-100 hover:shadow-md'
+                                                }`}
+                                            onMouseEnter={() => setHoveredProperty(imovel.id)}
+                                            onMouseLeave={() => setHoveredProperty(null)}
+                                        >
+                                            <div
+                                                className="w-full bg-center bg-no-repeat h-32 xl:h-48 bg-cover"
+                                                style={{ backgroundImage: `url("${imovel.imagem}")` }}
+                                            />
+                                            <div className="px-2 pb-1">
+                                                <p className="text-[#1b0e0f] text-xs xl:text-sm font-semibold leading-tight mb-1 line-clamp-2">{imovel.endereco}</p>
+                                                <div className="flex flex-wrap gap-1 mb-1">
+                                                    <span className="text-[8px] xl:text-[10px] text-[#5e0d12] bg-[#f3e8e9] px-1 xl:px-1.5 py-0.5 rounded-full font-medium">
+                                                        {imovel.quartos} Quartos
+                                                    </span>
+                                                    <span className="text-[8px] xl:text-[10px] text-[#5e0d12] bg-[#f3e8e9] px-1 xl:px-1.5 py-0.5 rounded-full font-medium">
+                                                        {imovel.banheiros} Banheiros
+                                                    </span>
+                                                    <span className="text-[8px] xl:text-[10px] text-[#5e0d12] bg-[#f3e8e9] px-1 xl:px-1.5 py-0.5 rounded-full font-medium">
+                                                        {imovel.area}m²
+                                                    </span>
+                                                </div>
+                                                <p className="text-[#5e0d12] text-xs xl:text-sm font-bold">
+                                                    R$ {imovel.preco.toLocaleString('pt-BR')}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+
+                            {/* Mapa */}
+                            <div className="w-full lg:w-2/5 rounded-lg overflow-hidden">
                                 <MapContainer
                                     ref={mapRef}
                                     center={RIBEIRAO_PRETO_CENTER}
@@ -147,7 +472,7 @@ export default function ImoveisPage() {
                                     scrollWheelZoom={true}
                                     doubleClickZoom={true}
                                     dragging={true}
-                                    className="w-full h-full min-h-[300px] sm:min-h-[400px] rounded-lg z-0"
+                                    className="w-full h-full rounded-lg z-0"
                                     style={{ zIndex: 0 }}
                                 >
                                     <TileLayer
@@ -208,70 +533,7 @@ export default function ImoveisPage() {
                                 </MapContainer>
                             </div>
                         </div>
-                    </div>
-
-                    {/* Filtros */}
-                    <div className="flex gap-2 sm:gap-3 p-2 sm:p-3 flex-wrap pr-2 sm:pr-4 overflow-x-auto">
-                        <button className="flex h-7 sm:h-8 shrink-0 items-center justify-center gap-x-1 sm:gap-x-2 rounded-lg bg-[#f3e8e9] pl-2 sm:pl-4 pr-1 sm:pr-2 hover:bg-[#e8d5d7] transition-colors whitespace-nowrap">
-                            <p className="text-[#1b0e0f] text-xs sm:text-sm font-medium leading-normal">Tipo</p>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" fill="currentColor" viewBox="0 0 256 256" className="sm:w-5 sm:h-5">
-                                <path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"></path>
-                            </svg>
-                        </button>
-                        <button className="flex h-7 sm:h-8 shrink-0 items-center justify-center gap-x-1 sm:gap-x-2 rounded-lg bg-[#f3e8e9] pl-2 sm:pl-4 pr-1 sm:pr-2 hover:bg-[#e8d5d7] transition-colors whitespace-nowrap">
-                            <p className="text-[#1b0e0f] text-xs sm:text-sm font-medium leading-normal">Local</p>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" fill="currentColor" viewBox="0 0 256 256" className="sm:w-5 sm:h-5">
-                                <path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"></path>
-                            </svg>
-                        </button>
-                        <button className="flex h-7 sm:h-8 shrink-0 items-center justify-center gap-x-1 sm:gap-x-2 rounded-lg bg-[#f3e8e9] pl-2 sm:pl-4 pr-1 sm:pr-2 hover:bg-[#e8d5d7] transition-colors whitespace-nowrap">
-                            <p className="text-[#1b0e0f] text-xs sm:text-sm font-medium leading-normal">Preço</p>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" fill="currentColor" viewBox="0 0 256 256" className="sm:w-5 sm:h-5">
-                                <path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"></path>
-                            </svg>
-                        </button>
-                        <button className="flex h-7 sm:h-8 shrink-0 items-center justify-center gap-x-1 sm:gap-x-2 rounded-lg bg-[#f3e8e9] pl-2 sm:pl-4 pr-1 sm:pr-2 hover:bg-[#e8d5d7] transition-colors whitespace-nowrap">
-                            <p className="text-[#1b0e0f] text-xs sm:text-sm font-medium leading-normal">Quartos</p>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" fill="currentColor" viewBox="0 0 256 256" className="sm:w-5 sm:h-5">
-                                <path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"></path>
-                            </svg>
-                        </button>
-                        <button className="flex h-7 sm:h-8 shrink-0 items-center justify-center gap-x-1 sm:gap-x-2 rounded-lg bg-[#f3e8e9] pl-2 sm:pl-4 pr-1 sm:pr-2 hover:bg-[#e8d5d7] transition-colors whitespace-nowrap">
-                            <p className="text-[#1b0e0f] text-xs sm:text-sm font-medium leading-normal">Banheiros</p>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" fill="currentColor" viewBox="0 0 256 256" className="sm:w-5 sm:h-5">
-                                <path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"></path>
-                            </svg>
-                        </button>
-                    </div>
-
-                    {/* Grid de Imóveis */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[repeat(auto-fit,minmax(280px,1fr))] gap-3 sm:gap-4 p-3 sm:p-4">
-                        {mockImoveis.map((imovel) => (
-                            <div key={imovel.id} className="flex flex-col gap-2 sm:gap-3 pb-2 sm:pb-3 cursor-pointer hover:shadow-lg transition-shadow rounded-lg p-2 bg-white">
-                                <div
-                                    className="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-lg"
-                                    style={{ backgroundImage: `url("${imovel.imagem}")` }}
-                                />
-                                <div className="px-1">
-                                    <p className="text-[#1b0e0f] text-sm sm:text-base font-medium leading-tight mb-1">{imovel.endereco}</p>
-                                    <div className="flex flex-wrap gap-1 mb-2">
-                                        <span className="text-xs text-[#955055] bg-gray-100 px-2 py-1 rounded">
-                                            {imovel.quartos} quartos
-                                        </span>
-                                        <span className="text-xs text-[#955055] bg-gray-100 px-2 py-1 rounded">
-                                            {imovel.banheiros} banheiros
-                                        </span>
-                                        <span className="text-xs text-[#955055] bg-gray-100 px-2 py-1 rounded">
-                                            {imovel.area} m²
-                                        </span>
-                                    </div>
-                                    <p className="text-[#5e0d12] text-lg sm:text-xl font-bold">
-                                        R$ {imovel.preco.toLocaleString('pt-BR')}
-                                    </p>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
+                    )}
 
                     {/* Paginação */}
                     <div className="flex items-center justify-center p-3 sm:p-4 gap-1 sm:gap-2">
