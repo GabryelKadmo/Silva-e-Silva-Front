@@ -67,11 +67,11 @@ export default function ImovelDetalhesPage() {
                             {imovel.tipo}
                         </Badge>
                         <h1 className="text-3xl font-bold text-gray-900 mb-2">
-                            {formatPrice(imovel.preco)}
+                            {imovel.endereco}
                         </h1>
                         <div className="flex items-center text-gray-600">
                             <MapPin className="w-4 h-4 mr-1" />
-                            <span>{imovel.endereco}</span>
+                            <span> {formatPrice(imovel.preco)}</span>
                         </div>
                     </div>
 
