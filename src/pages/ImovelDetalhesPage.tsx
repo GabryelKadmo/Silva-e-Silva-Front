@@ -1,10 +1,10 @@
-import { useParams, Link, useNavigate } from "react-router-dom";
+import { ArrowLeft, Bath, Bed, Car, Home, Star } from "lucide-react";
 import { useState } from "react";
-import { mockImoveis } from "../data/mockImoveis";
-import { Button } from "../components/ui/button";
-import { ArrowLeft, MapPin, Bed, Bath, Home, Car, Star } from "lucide-react";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { Badge } from "../components/ui/badge";
+import { Button } from "../components/ui/button";
 import { Separator } from "../components/ui/separator";
+import { mockImoveis } from "../data/mockImoveis";
 import LogoPng from "/LogoWhitePng.png";
 
 export default function ImovelDetalhesPage() {
