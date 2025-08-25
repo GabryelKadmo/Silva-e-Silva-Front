@@ -332,8 +332,8 @@ export default function ImovelDetalhesPage() {
                                         <button
                                             key={index}
                                             className={`flex-shrink-0 transition-all duration-300 rounded-xl overflow-hidden backdrop-blur-sm ${imagemPrincipalIndex === index
-                                                    ? 'ring-3 ring-white/90 ring-offset-2 ring-offset-transparent scale-110 opacity-100 shadow-lg shadow-white/30'
-                                                    : 'opacity-75 hover:opacity-95 hover:scale-105'
+                                                ? 'ring-3 ring-white/90 ring-offset-2 ring-offset-transparent scale-110 opacity-100 shadow-lg shadow-white/30'
+                                                : 'opacity-75 hover:opacity-95 hover:scale-105'
                                                 } relative group`}
                                             onClick={(e) => {
                                                 e.stopPropagation();
@@ -359,8 +359,8 @@ export default function ImovelDetalhesPage() {
                                     <button
                                         key={index}
                                         className={`flex-shrink-0 transition-all duration-300 rounded-xl overflow-hidden backdrop-blur-sm ${imagemPrincipalIndex === index
-                                                ? 'ring-2 ring-white/80 ring-offset-2 ring-offset-transparent scale-110 opacity-100 shadow-lg shadow-white/20'
-                                                : 'opacity-60 hover:opacity-90 hover:scale-105 hover:ring-1 hover:ring-white/40'
+                                            ? 'ring-2 ring-white/80 ring-offset-2 ring-offset-transparent scale-110 opacity-100 shadow-lg shadow-white/20'
+                                            : 'opacity-60 hover:opacity-90 hover:scale-105 hover:ring-1 hover:ring-white/40'
                                             } relative group`}
                                         onClick={(e) => {
                                             e.stopPropagation();
@@ -433,10 +433,10 @@ export default function ImovelDetalhesPage() {
                 </div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                    {/* Galeria de Imagens */}
-                    <div className="lg:col-span-2">
+                    {/* Galeria de Imagens e Descrição */}
+                    <div className="lg:col-span-2 space-y-8">
                         {/* Layout Desktop - Grid com imagem principal e miniaturas */}
-                        <div className="hidden md:flex gap-4 mb-8">
+                        <div className="hidden md:flex gap-4">
                             {/* Imagem Principal - Esquerda */}
                             <div className="flex-1 group">
                                 <div className="relative overflow-hidden rounded-xl shadow-2xl">
@@ -684,9 +684,10 @@ export default function ImovelDetalhesPage() {
 
                     {/* Sidebar com informações de contato */}
                     <div className="lg:col-span-1">
-                        {/* Desktop - Sidebar fixa */}
-                        <div className="hidden lg:block sticky top-8 space-y-6">
-                            <div className="bg-white rounded-lg border p-6">
+                        {/* Desktop - Sidebar com alinhamento específico */}
+                        <div className="hidden lg:block space-y-8">
+                            {/* Card de contato - alinhado com a altura das imagens */}
+                            <div className="bg-white rounded-lg border p-6 h-96">
                                 <h3 className="text-lg font-semibold mb-4">Contato</h3>
 
                                 <div className="mb-6">
@@ -701,7 +702,7 @@ export default function ImovelDetalhesPage() {
                                     </div>
                                 </div>
 
-                                <div className="space-y-3">
+                                <div className="space-y-3 mb-6">
                                     <Button className="w-full bg-[#5a1317] hover:bg-[#7a1a1f]" size="lg">
                                         Enviar Proposta
                                     </Button>
@@ -719,7 +720,7 @@ export default function ImovelDetalhesPage() {
                                 </div>
                             </div>
 
-                            {/* Informações adicionais */}
+                            {/* Informações adicionais - alinhado com o card sobre o imóvel */}
                             <div className="bg-white rounded-lg border p-6">
                                 <h3 className="text-lg font-semibold mb-4">Informações Adicionais</h3>
 
