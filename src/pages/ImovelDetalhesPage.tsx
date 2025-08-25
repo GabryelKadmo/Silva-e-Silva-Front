@@ -1,5 +1,5 @@
 import { Bath, Bed, Car, Home, Star, X, Images, ChevronLeft, ChevronRight } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo, useRef, useCallback } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { Badge } from "../components/ui/badge";
 import { Button } from "../components/ui/button";
@@ -12,11 +12,16 @@ export default function ImovelDetalhesPage() {
     const navigate = useNavigate();
     const [imagemPrincipalIndex, setImagemPrincipalIndex] = useState(0);
     const [galeriaAberta, setGaleriaAberta] = useState(false);
+    const [touchStart, setTouchStart] = useState<number | null>(null);
+    const [touchEnd, setTouchEnd] = useState<number | null>(null);
+
+    // Referência para o container de thumbnails mobile
+    const thumbnailsContainerMobileRef = useRef<HTMLDivElement>(null);
 
     const imovel = mockImoveis.find((item) => item.id === Number(id));
 
-    // Mock de imagens adicionais (incluindo a principal repetida)
-    const mockImages = imovel ? [
+    // Mock de imagens adicionais (incluindo a principal repetida) - Memoizado para evitar re-renders
+    const mockImages = useMemo(() => imovel ? [
         imovel.imagem, // Imagem principal
         "https://placehold.co/800x600/6b7280/ffffff.png?text=Sala",
         "https://placehold.co/800x600/6b7280/ffffff.png?text=Quarto",
@@ -25,7 +30,74 @@ export default function ImovelDetalhesPage() {
         "https://placehold.co/800x600/6b7280/ffffff.png?text=Varanda",
         "https://placehold.co/800x600/6b7280/ffffff.png?text=Area+Externa",
         "https://placehold.co/800x600/6b7280/ffffff.png?text=Garagem",
-    ] : [];
+    ] : [], [imovel]);
+
+    // Função para fazer scroll automático dos thumbnails
+    const scrollThumbnailIntoView = useCallback((index: number) => {
+        // Scroll para mobile
+        if (thumbnailsContainerMobileRef.current) {
+            const container = thumbnailsContainerMobileRef.current;
+            const thumbnails = container.children;
+
+            if (thumbnails[index]) {
+                const thumbnail = thumbnails[index] as HTMLElement;
+                const containerWidth = container.clientWidth;
+                const thumbnailWidth = thumbnail.offsetWidth;
+                const thumbnailLeft = thumbnail.offsetLeft;
+
+                // Calcula a posição para centralizar o thumbnail ativo
+                const scrollPosition = thumbnailLeft - (containerWidth / 2) + (thumbnailWidth / 2);
+
+                container.scrollTo({
+                    left: Math.max(0, scrollPosition),
+                    behavior: 'smooth'
+                });
+            }
+        }
+    }, []);
+
+    // Função para navegar com transição suave
+    const navegarParaImagem = useCallback((novoIndex: number) => {
+        setImagemPrincipalIndex(novoIndex);
+        // Fazer scroll automático dos thumbnails para manter o item ativo visível
+        setTimeout(() => {
+            scrollThumbnailIntoView(novoIndex);
+        }, 100);
+    }, [scrollThumbnailIntoView]);
+
+    // Preload das imagens próximas para transições mais suaves
+    useEffect(() => {
+        if (!galeriaAberta || mockImages.length === 0) return;
+
+        const preloadImage = (src: string) => {
+            const img = new Image();
+            img.src = src;
+        };
+
+        // Preload da imagem atual e próximas
+        preloadImage(mockImages[imagemPrincipalIndex]);
+
+        // Preload das próximas 2 imagens
+        const nextIndex = imagemPrincipalIndex === mockImages.length - 1 ? 0 : imagemPrincipalIndex + 1;
+        const nextNextIndex = nextIndex === mockImages.length - 1 ? 0 : nextIndex + 1;
+
+        preloadImage(mockImages[nextIndex]);
+        preloadImage(mockImages[nextNextIndex]);
+
+        // Preload das 2 imagens anteriores
+        const prevIndex = imagemPrincipalIndex === 0 ? mockImages.length - 1 : imagemPrincipalIndex - 1;
+        const prevPrevIndex = prevIndex === 0 ? mockImages.length - 1 : prevIndex - 1;
+
+        preloadImage(mockImages[prevIndex]);
+        preloadImage(mockImages[prevPrevIndex]);
+    }, [galeriaAberta, imagemPrincipalIndex, mockImages]);
+
+    // Auto-scroll dos thumbnails quando a imagem principal mudar
+    useEffect(() => {
+        if (galeriaAberta && mockImages.length > 0) {
+            scrollThumbnailIntoView(imagemPrincipalIndex);
+        }
+    }, [galeriaAberta, imagemPrincipalIndex, mockImages.length, scrollThumbnailIntoView]);
 
     // Desabilita o scroll do body quando a galeria estiver aberta
     useEffect(() => {
@@ -49,11 +121,11 @@ export default function ImovelDetalhesPage() {
             if (e.key === 'Escape') {
                 setGaleriaAberta(false);
             } else if (e.key === 'ArrowLeft') {
-                setImagemPrincipalIndex(
+                navegarParaImagem(
                     imagemPrincipalIndex === 0 ? mockImages.length - 1 : imagemPrincipalIndex - 1
                 );
             } else if (e.key === 'ArrowRight') {
-                setImagemPrincipalIndex(
+                navegarParaImagem(
                     imagemPrincipalIndex === mockImages.length - 1 ? 0 : imagemPrincipalIndex + 1
                 );
             }
@@ -61,12 +133,44 @@ export default function ImovelDetalhesPage() {
 
         document.addEventListener('keydown', handleKeyDown);
         return () => document.removeEventListener('keydown', handleKeyDown);
-    }, [galeriaAberta, imagemPrincipalIndex, mockImages.length]);
+    }, [galeriaAberta, imagemPrincipalIndex, mockImages.length, navegarParaImagem]);
 
     // Função para fechar ao clicar fora
     const handleBackdropClick = (e: React.MouseEvent) => {
         if (e.target === e.currentTarget) {
             setGaleriaAberta(false);
+        }
+    };
+
+    // Funções para gestos de deslizar no mobile
+    const minSwipeDistance = 50;
+
+    const onTouchStart = (e: React.TouchEvent) => {
+        setTouchEnd(null);
+        setTouchStart(e.targetTouches[0].clientX);
+    };
+
+    const onTouchMove = (e: React.TouchEvent) => {
+        setTouchEnd(e.targetTouches[0].clientX);
+    };
+
+    const onTouchEnd = () => {
+        if (!touchStart || !touchEnd) return;
+        const distance = touchStart - touchEnd;
+        const isLeftSwipe = distance > minSwipeDistance;
+        const isRightSwipe = distance < -minSwipeDistance;
+
+        if (isLeftSwipe && mockImages.length > 1) {
+            // Deslizar para esquerda - próxima imagem
+            navegarParaImagem(
+                imagemPrincipalIndex === mockImages.length - 1 ? 0 : imagemPrincipalIndex + 1
+            );
+        }
+        if (isRightSwipe && mockImages.length > 1) {
+            // Deslizar para direita - imagem anterior
+            navegarParaImagem(
+                imagemPrincipalIndex === 0 ? mockImages.length - 1 : imagemPrincipalIndex - 1
+            );
         }
     };
 
@@ -97,7 +201,7 @@ export default function ImovelDetalhesPage() {
 
     return (
         <>
-            {/* Modal da Galeria Completa - Versão Mobile Otimizada */}
+            {/* Modal da Galeria Completa - Design Simples para Desktop, Premium para Mobile */}
             {galeriaAberta && (
                 <div
                     className="fixed inset-0 z-50 bg-black/95 backdrop-blur-md flex items-center justify-center"
@@ -106,7 +210,7 @@ export default function ImovelDetalhesPage() {
                     {/* Container principal do modal */}
                     <div className="relative w-full h-full max-w-7xl mx-auto p-2 sm:p-4 md:p-6 flex flex-col">
 
-                        {/* Header elegante do modal - Centralizado */}
+                        {/* Header elegante do modal - Design Simples */}
                         <div className="flex justify-between items-center px-2 sm:px-4 md:px-6 py-4"
                             onClick={(e) => e.stopPropagation()}>
                             <div className="flex-1" onClick={() => setGaleriaAberta(false)}></div>
@@ -133,15 +237,20 @@ export default function ImovelDetalhesPage() {
                                     <X className="w-4 h-4 sm:w-5 sm:h-5" />
                                 </Button>
                             </div>
-                        </div>
-
-                        {/* Área da imagem principal - Centralizada */}
+                        </div>                        {/* Área da imagem principal - Design Simples para Desktop */}
                         <div className="flex-1 flex items-center justify-center px-4 py-4"
                             onClick={(e) => e.stopPropagation()}>
-                            {/* Mobile - Aspect ratio mais quadrado */}
+
+                            {/* Mobile - Com suporte a gestos de toque - Premium */}
                             <div className="relative w-full max-w-2xl sm:hidden">
-                                <div className="relative w-full aspect-[4/3] max-h-[50vh] flex items-center justify-center">
+                                <div
+                                    className="relative w-full aspect-[4/3] max-h-[50vh] flex items-center justify-center"
+                                    onTouchStart={onTouchStart}
+                                    onTouchMove={onTouchMove}
+                                    onTouchEnd={onTouchEnd}
+                                >
                                     <img
+                                        key={imagemPrincipalIndex}
                                         src={mockImages[imagemPrincipalIndex]}
                                         alt={`Imagem ${imagemPrincipalIndex + 1} do imóvel`}
                                         className="w-full h-full object-cover rounded-lg shadow-2xl transition-opacity duration-300"
@@ -154,15 +263,13 @@ export default function ImovelDetalhesPage() {
                                     {/* Indicador de loading/transição sutil */}
                                     <div className="absolute inset-0 bg-white/5 rounded-lg opacity-0 transition-opacity duration-200 pointer-events-none" />
                                 </div>
-
-                                {/* Área clicável para fechar - Mobile */}
-                                <div className="absolute inset-0 -m-4" onClick={() => setGaleriaAberta(false)}></div>
                             </div>
 
-                            {/* Desktop/Tablet - Formato original com aspect ratio consistente */}
+                            {/* Desktop/Tablet - Design Simples como antes */}
                             <div className="relative w-full max-w-4xl max-h-[60vh] hidden sm:flex items-center justify-center">
                                 <div className="relative w-full h-full flex items-center justify-center">
                                     <img
+                                        key={imagemPrincipalIndex}
                                         src={mockImages[imagemPrincipalIndex]}
                                         alt={`Imagem ${imagemPrincipalIndex + 1} do imóvel`}
                                         className="max-w-full max-h-full object-contain rounded-lg shadow-2xl transition-opacity duration-300"
@@ -181,14 +288,14 @@ export default function ImovelDetalhesPage() {
                             </div>
                         </div>
 
-                        {/* Navegação por setas - Adaptada para o novo layout */}
+                        {/* Navegação por setas - Design Simples */}
                         {mockImages.length > 1 && (
                             <>
                                 <Button
                                     variant="ghost"
                                     size="icon"
                                     className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white hover:bg-white/20 rounded-full w-10 h-10 sm:w-12 sm:h-12 transition-all duration-200 backdrop-blur-sm bg-black/30 border border-white/20 z-30"
-                                    onClick={() => setImagemPrincipalIndex(
+                                    onClick={() => navegarParaImagem(
                                         imagemPrincipalIndex === 0 ? mockImages.length - 1 : imagemPrincipalIndex - 1
                                     )}
                                 >
@@ -198,7 +305,7 @@ export default function ImovelDetalhesPage() {
                                     variant="ghost"
                                     size="icon"
                                     className="absolute right-4 top-1/2 transform -translate-y-1/2 text-white hover:bg-white/20 rounded-full w-10 h-10 sm:w-12 sm:h-12 transition-all duration-200 backdrop-blur-sm bg-black/30 border border-white/20 z-30"
-                                    onClick={() => setImagemPrincipalIndex(
+                                    onClick={() => navegarParaImagem(
                                         imagemPrincipalIndex === mockImages.length - 1 ? 0 : imagemPrincipalIndex + 1
                                     )}
                                 >
@@ -207,28 +314,36 @@ export default function ImovelDetalhesPage() {
                             </>
                         )}
 
-                        {/* Barra de thumbnails - Posicionada na parte inferior */}
-                        <div className="px-4 pb-4" onClick={(e) => e.stopPropagation()}>
-                            {/* Mobile - Carrossel horizontal com thumbnails maiores */}
+                        {/* Barra de thumbnails - Design Simples para Desktop, Premium para Mobile */}
+                        <div className="px-2 pb-6 pt-2" onClick={(e) => e.stopPropagation()}>
+
+                            {/* Mobile - Carrossel Premium */}
                             <div className="sm:hidden">
-                                <div className="flex justify-start items-center gap-3 overflow-x-auto pb-2 pt-2 px-2"
-                                    style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+                                <div
+                                    ref={thumbnailsContainerMobileRef}
+                                    className="flex justify-start items-center gap-4 overflow-x-auto pb-3 pt-3 px-3 scrollbar-hide"
+                                    style={{
+                                        scrollbarWidth: 'none',
+                                        msOverflowStyle: 'none',
+                                        scrollBehavior: 'smooth'
+                                    }}
+                                >
                                     {mockImages.map((image, index) => (
                                         <button
                                             key={index}
-                                            className={`flex-shrink-0 transition-all duration-300 rounded-lg overflow-hidden backdrop-blur-sm ${imagemPrincipalIndex === index
-                                                ? 'ring-2 ring-white/90 ring-offset-1 ring-offset-transparent scale-105 opacity-100 shadow-lg shadow-white/30'
-                                                : 'opacity-75 hover:opacity-95 hover:scale-105'
+                                            className={`flex-shrink-0 transition-all duration-300 rounded-xl overflow-hidden backdrop-blur-sm ${imagemPrincipalIndex === index
+                                                    ? 'ring-3 ring-white/90 ring-offset-2 ring-offset-transparent scale-110 opacity-100 shadow-lg shadow-white/30'
+                                                    : 'opacity-75 hover:opacity-95 hover:scale-105'
                                                 } relative group`}
                                             onClick={(e) => {
                                                 e.stopPropagation();
-                                                setImagemPrincipalIndex(index);
+                                                navegarParaImagem(index);
                                             }}
                                         >
                                             <img
                                                 src={image}
                                                 alt={`Thumbnail ${index + 1}`}
-                                                className="w-18 h-14 object-cover transition-all duration-300 group-hover:brightness-110"
+                                                className="w-24 h-18 object-cover transition-all duration-300 group-hover:brightness-110"
                                             />
                                             {/* Overlay para melhor contraste */}
                                             <div className={`absolute inset-0 bg-gradient-to-t from-black/15 via-transparent to-white/5 transition-opacity duration-300 ${imagemPrincipalIndex === index ? 'opacity-0' : 'opacity-30 group-hover:opacity-15'
@@ -238,19 +353,18 @@ export default function ImovelDetalhesPage() {
                                 </div>
                             </div>
 
-                            {/* Desktop/Tablet - Grid centralizado com thumbnails maiores */}
+                            {/* Desktop/Tablet - Grid Simples como antes */}
                             <div className="hidden sm:flex justify-center items-center gap-4 flex-wrap">
-                                {/* Mostra todas as thumbnails organizadas em linhas */}
                                 {mockImages.map((image, index) => (
                                     <button
                                         key={index}
                                         className={`flex-shrink-0 transition-all duration-300 rounded-xl overflow-hidden backdrop-blur-sm ${imagemPrincipalIndex === index
-                                            ? 'ring-2 ring-white/80 ring-offset-2 ring-offset-transparent scale-110 opacity-100 shadow-lg shadow-white/20'
-                                            : 'opacity-60 hover:opacity-90 hover:scale-105 hover:ring-1 hover:ring-white/40'
+                                                ? 'ring-2 ring-white/80 ring-offset-2 ring-offset-transparent scale-110 opacity-100 shadow-lg shadow-white/20'
+                                                : 'opacity-60 hover:opacity-90 hover:scale-105 hover:ring-1 hover:ring-white/40'
                                             } relative group`}
                                         onClick={(e) => {
                                             e.stopPropagation();
-                                            setImagemPrincipalIndex(index);
+                                            navegarParaImagem(index);
                                         }}
                                     >
                                         <img
@@ -258,7 +372,7 @@ export default function ImovelDetalhesPage() {
                                             alt={`Thumbnail ${index + 1}`}
                                             className="w-20 h-16 md:w-24 md:h-18 object-cover transition-all duration-300 group-hover:brightness-110"
                                         />
-                                        {/* Overlay gradient sutil */}
+                                        {/* Overlay gradient simples */}
                                         <div className={`absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-white/10 transition-opacity duration-300 ${imagemPrincipalIndex === index ? 'opacity-0' : 'opacity-30 group-hover:opacity-10'
                                             }`}></div>
                                     </button>
@@ -366,7 +480,7 @@ export default function ImovelDetalhesPage() {
                                                     imageRendering: '-webkit-optimize-contrast',
                                                     filter: 'contrast(1.02) saturate(1.05)',
                                                 }}
-                                                onClick={() => setImagemPrincipalIndex(index + 1)}
+                                                onClick={() => navegarParaImagem(index + 1)}
                                             />
 
                                             {/* Overlay elegante para a última imagem */}
@@ -447,7 +561,7 @@ export default function ImovelDetalhesPage() {
                                                 variant="ghost"
                                                 size="icon"
                                                 className="absolute left-2 top-1/2 transform -translate-y-1/2 text-white hover:bg-white/10 rounded-full w-10 h-10 bg-black/30 backdrop-blur-sm"
-                                                onClick={() => setImagemPrincipalIndex(
+                                                onClick={() => navegarParaImagem(
                                                     imagemPrincipalIndex === 0 ? mockImages.length - 1 : imagemPrincipalIndex - 1
                                                 )}
                                             >
@@ -457,7 +571,7 @@ export default function ImovelDetalhesPage() {
                                                 variant="ghost"
                                                 size="icon"
                                                 className="absolute right-2 top-1/2 transform -translate-y-1/2 text-white hover:bg-white/10 rounded-full w-10 h-10 bg-black/30 backdrop-blur-sm"
-                                                onClick={() => setImagemPrincipalIndex(
+                                                onClick={() => navegarParaImagem(
                                                     imagemPrincipalIndex === mockImages.length - 1 ? 0 : imagemPrincipalIndex + 1
                                                 )}
                                             >
@@ -484,7 +598,7 @@ export default function ImovelDetalhesPage() {
                                                 ? 'ring-2 ring-[#5e0d12] ring-offset-1 scale-105 opacity-100'
                                                 : 'opacity-70 hover:opacity-90 hover:scale-105'
                                                 }`}
-                                            onClick={() => setImagemPrincipalIndex(index)}
+                                            onClick={() => navegarParaImagem(index)}
                                         >
                                             <img
                                                 src={image}
